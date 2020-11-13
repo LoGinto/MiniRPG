@@ -7,6 +7,8 @@ public class Movement : MonoBehaviour
     [SerializeField] float speed = 2f;
     [SerializeField] float gravity = 20f;
     Animator animator;
+    bool rollFlag;
+    bool isInteracting;
     Camera myCamera;
     CharacterController characterController;
     // Start is called before the first frame update
@@ -20,8 +22,25 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isInteracting = animator.GetBool("IsInteracting");
+        HandleRollInput();
         Move();
+        rollFlag = false;
     }
+    void PlayerTargetAnim(string targetAnim,bool isInteracting)
+    {
+        animator.applyRootMotion = isInteracting;
+        animator.SetBool("IsInteracting", isInteracting);
+        animator.CrossFade(targetAnim, 0.2f);
+    }
+    void HandleRollInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rollFlag = true;
+        }
+    }
+    
     void Move()
     {
         float verticalAxis = Input.GetAxis("Vertical");
@@ -33,6 +52,29 @@ public class Movement : MonoBehaviour
         //animator.SetBool("Walk", true);
         actualMovement.y -= gravity;
         characterController.Move(actualMovement);
+        MovementBlendTree(verticalAxis, horizontalAxis);
+        if (animator.GetBool("IsInteracting"))
+        {
+            return;
+        }
+        if (rollFlag)
+        {
+            if (verticalAxis != 0 || horizontalAxis != 0)
+            {               
+                PlayerTargetAnim("Roll",true);
+                actualMovement.y = 0;
+                Quaternion rollRot = Quaternion.LookRotation(actualMovement);
+                transform.rotation = rollRot;
+            }
+            else
+            {
+                PlayerTargetAnim("Dodge", true);
+            }
+        }        
+    }
+
+    private void MovementBlendTree(float verticalAxis, float horizontalAxis)
+    {
         if (verticalAxis != 0)
         {
             animator.SetFloat("Move", Mathf.Abs(verticalAxis));
@@ -41,9 +83,9 @@ public class Movement : MonoBehaviour
         {
             animator.SetFloat("Move", Mathf.Abs(horizontalAxis));
         }
-        else if(horizontalAxis == 0 && verticalAxis == 0)
+        else if (horizontalAxis == 0 && verticalAxis == 0)
         {
-            float goToZero = Mathf.Lerp(animator.GetFloat("Move"),0,Time.deltaTime);
+            float goToZero = Mathf.Lerp(animator.GetFloat("Move"), 0, Time.deltaTime);
             animator.SetFloat("Move", goToZero);
         }
     }
