@@ -6,6 +6,7 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] float speed = 2f;
     [SerializeField] float gravity = 20f;
+    AnimationPlayer animationPlayer;
     Animator animator;
     bool rollFlag;
     bool isInteracting;
@@ -16,6 +17,7 @@ public class Movement : MonoBehaviour
     {
         myCamera = GameObject.FindObjectOfType<Camera>();
         animator = GetComponent<Animator>();
+        animationPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationPlayer>();
         characterController = GetComponent<CharacterController>();
     }
 
@@ -27,12 +29,7 @@ public class Movement : MonoBehaviour
         Move();
         rollFlag = false;
     }
-    void PlayerTargetAnim(string targetAnim,bool isInteracting)
-    {
-        animator.applyRootMotion = isInteracting;
-        animator.SetBool("IsInteracting", isInteracting);
-        animator.CrossFade(targetAnim, 0.2f);
-    }
+    
     void HandleRollInput()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -43,6 +40,10 @@ public class Movement : MonoBehaviour
     
     void Move()
     {
+        if (animator.GetBool("IsInteracting"))
+        {
+            return;
+        }
         float verticalAxis = Input.GetAxis("Vertical");
         float horizontalAxis = Input.GetAxis("Horizontal");
         Vector3 cameraForward = Vector3.Scale(myCamera.transform.forward, new Vector3(1, 0, 1)).normalized;
@@ -53,22 +54,18 @@ public class Movement : MonoBehaviour
         actualMovement.y -= gravity;
         characterController.Move(actualMovement);
         MovementBlendTree(verticalAxis, horizontalAxis);
-        if (animator.GetBool("IsInteracting"))
-        {
-            return;
-        }
         if (rollFlag)
         {
             if (verticalAxis != 0 || horizontalAxis != 0)
             {               
-                PlayerTargetAnim("Roll",true);
+                animationPlayer.PlayerTargetAnim("Roll",true);
                 actualMovement.y = 0;
                 Quaternion rollRot = Quaternion.LookRotation(actualMovement);
                 transform.rotation = rollRot;
             }
             else
             {
-                PlayerTargetAnim("Dodge", true);
+                animationPlayer.PlayerTargetAnim("Dodge", true);
             }
         }        
     }
@@ -88,6 +85,10 @@ public class Movement : MonoBehaviour
             float goToZero = Mathf.Lerp(animator.GetFloat("Move"), 0, Time.deltaTime);
             animator.SetFloat("Move", goToZero);
         }
+    }
+    public bool GetRollFlag()
+    {
+        return rollFlag;
     }
 }
 
