@@ -5,11 +5,14 @@ using UnityEngine;
 public class ResetAnimatorBool : StateMachineBehaviour
 {
     public string targetBool;
+    public string secondTargetBool;//since this shit is not adding more cripts
     public bool status;
+    public bool secondBoolStatus;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool(targetBool, status);
+        animator.SetBool(secondTargetBool,secondBoolStatus);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

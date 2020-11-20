@@ -16,4 +16,16 @@ public class AnimationPlayer : MonoBehaviour
         animator.SetBool("IsInteracting", isInteracting);
         animator.CrossFade(targetAnim, 0.2f);
     }
+    public Animator GetAnimator()
+    {
+        return animator;
+    }
+    public void EnableCombo()
+    {
+        animator.SetBool("CanDoCombo", true);
+    }
+    public void DisableCombo()
+    {
+        animator.SetBool("CanDoCombo", false);
+    }
 }

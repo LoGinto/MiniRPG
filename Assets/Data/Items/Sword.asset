@@ -18,3 +18,7 @@ MonoBehaviour:
   isUnarmed: 0
   On_Light_Attack_1: Sword And Shield Slash
   On_Heavy_Attack_1: standing_melee_attack_backhand
+  On_Light_Attack_2: standing_melee_attack_downward
+  On_Heavy_Attack_2: standing_melee_attack_horizontal
+  right_hand_idle: Right_Arm_Idle_01
+  left_hand_idle: Left_Arm_Idle_01
