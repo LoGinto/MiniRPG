@@ -9,7 +9,10 @@ namespace SoulItem
     {
         public GameObject modelPrefab;
         public bool isUnarmed;
-
+        [Header("Stamina drain")]
+        public float baseStaminaDrain;
+        public float lightAttackMultiplier;
+        public float heavyAttackMultiplier;
         [Header("One handed")]
         public string On_Light_Attack_1;
         public string On_Heavy_Attack_1;

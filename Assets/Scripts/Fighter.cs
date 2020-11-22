@@ -8,6 +8,7 @@ public class Fighter : MonoBehaviour
     AnimationPlayer animationPlayer;
     public string lastAttack;
     PlayerInventory inventory;
+    PlayerStats stats;
     bool canDoCombo;
     bool comboFlag;
     private void Awake()
@@ -16,6 +17,7 @@ public class Fighter : MonoBehaviour
     }
     private void Start()
     {
+        stats = FindObjectOfType<PlayerStats>();
         //animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         animationPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationPlayer>();
     }
@@ -49,8 +51,20 @@ public class Fighter : MonoBehaviour
         canDoCombo = animationPlayer.GetAnimator().GetBool("CanDoCombo");
         if (gameObject.GetComponent<Movement>().GetRollFlag() == false)
         {
-            if (Input.GetMouseButtonDown(0))
+            HandleAttacks();
+        }
+    }
+    public bool GetCanDoCombo()
+    {
+        return canDoCombo;
+    }
+    void HandleAttacks()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (stats.currentStamina >= inventory.rightWeapon.baseStaminaDrain * inventory.rightWeapon.lightAttackMultiplier)
             {
+                
                 if (canDoCombo)
                 {
                     comboFlag = true;
@@ -63,12 +77,16 @@ public class Fighter : MonoBehaviour
                         return;
                     if (animationPlayer.GetAnimator().GetBool("IsInteracting"))
                         return;
-                    HandleLightAttack(inventory.rightWeapon);                  
+                    HandleLightAttack(inventory.rightWeapon);
                 }
-               
             }
-            if (Input.GetMouseButtonDown(1))
+
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (stats.currentStamina >= inventory.rightWeapon.baseStaminaDrain * inventory.rightWeapon.heavyAttackMultiplier)
             {
+                
                 if (canDoCombo)
                 {
                     comboFlag = true;
@@ -86,8 +104,12 @@ public class Fighter : MonoBehaviour
             }
         }
     }
-    public bool GetCanDoCombo()
+    public void TakeHeavyStaminaAnimationEvent()
     {
-        return canDoCombo;
+        stats.TakeStamina(inventory.rightWeapon.baseStaminaDrain * inventory.rightWeapon.heavyAttackMultiplier);
+    }
+    public void TakeLightStaminaAnimationEvent()
+    {
+        stats.TakeStamina(inventory.rightWeapon.baseStaminaDrain * inventory.rightWeapon.lightAttackMultiplier);
     }
 }

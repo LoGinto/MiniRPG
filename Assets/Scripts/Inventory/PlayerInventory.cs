@@ -15,6 +15,7 @@ namespace SoulItem
 
         public int currenRightWeaponIndex = 0;
         public int currenLeftWeaponIndex = 0;
+        public List<WeaponItem> weaponsInventory;
         private void Awake()
         {
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();

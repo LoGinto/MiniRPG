@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 942a79394aff344449343125fe664690, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 72235a1d910334ac4acc647da195e214, type: 3}
   itemName: Sword
   modelPrefab: {fileID: 2709332536042650005, guid: 5c799f301f951a24b9a12a17df379cc7, type: 3}
   isUnarmed: 0
+  baseStaminaDrain: 10
+  lightAttackMultiplier: 1
+  heavyAttackMultiplier: 2
   On_Light_Attack_1: Sword And Shield Slash
   On_Heavy_Attack_1: standing_melee_attack_backhand
   On_Light_Attack_2: standing_melee_attack_downward

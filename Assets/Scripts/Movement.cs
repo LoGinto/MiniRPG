@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float speed = 2f;
     [SerializeField] float gravity = 20f;
     AnimationPlayer animationPlayer;
+    PlayerStats stats;
     Animator animator;
     bool rollFlag;
     bool isInteracting;
@@ -17,6 +18,7 @@ public class Movement : MonoBehaviour
     {
         myCamera = GameObject.FindObjectOfType<Camera>();
         animator = GetComponent<Animator>();
+        stats = FindObjectOfType<PlayerStats>();
         animationPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationPlayer>();
         characterController = GetComponent<CharacterController>();
     }
@@ -56,16 +58,20 @@ public class Movement : MonoBehaviour
         MovementBlendTree(verticalAxis, horizontalAxis);
         if (rollFlag)
         {
-            if (verticalAxis != 0 || horizontalAxis != 0)
-            {               
-                animationPlayer.PlayerTargetAnim("Roll",true);
-                actualMovement.y = 0;
-                Quaternion rollRot = Quaternion.LookRotation(actualMovement);
-                transform.rotation = rollRot;
-            }
-            else
+            if (stats.currentStamina >= stats.rollDrain)
             {
-                animationPlayer.PlayerTargetAnim("Dodge", true);
+                stats.RollDrain();    
+                if (verticalAxis != 0 || horizontalAxis != 0)
+                {
+                    animationPlayer.PlayerTargetAnim("Roll", true);
+                    actualMovement.y = 0;
+                    Quaternion rollRot = Quaternion.LookRotation(actualMovement);
+                    transform.rotation = rollRot;
+                }
+                else
+                {
+                    animationPlayer.PlayerTargetAnim("Dodge", true);
+                }
             }
         }        
     }
