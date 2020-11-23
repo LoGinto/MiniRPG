@@ -28,4 +28,19 @@ public class AnimationPlayer : MonoBehaviour
     {
         animator.SetBool("CanDoCombo", false);
     }
+    private void Update()
+    {
+        if (this.animator.GetCurrentAnimatorStateInfo(3).IsName("ZeroState"))
+        {
+            StartCoroutine(Wait());
+        }
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(3f);
+        if (animator.GetBool("IsInteracting") == true)
+        {
+            animator.SetBool("IsInteracting", false);
+        }
+    }
 }

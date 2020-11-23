@@ -8,9 +8,11 @@ public class PlayerStats : MonoBehaviour
     public float currentStamina;
     public int staminaLevel = 10;
     public float rollDrain = 20f;
+    float staminaRecoveryValue;
     public Slider staminaSlider;
     private void Start()
     {
+        staminaRecoveryValue = SetStaminaRecoveryValue();
         maxStamina = SetMax();
         currentStamina = maxStamina;
     }
@@ -18,6 +20,11 @@ public class PlayerStats : MonoBehaviour
     {
         maxStamina = staminaLevel *10;
         return maxStamina;
+    }
+    float SetStaminaRecoveryValue()
+    {
+        staminaRecoveryValue = staminaLevel / 2;
+        return staminaRecoveryValue;
     }
     public void TakeStamina(float damage)
     {
@@ -29,6 +36,11 @@ public class PlayerStats : MonoBehaviour
     }
     private void Update()
     {
-        staminaSlider.value = currentStamina/maxStamina;
+        staminaSlider.value = currentStamina/maxStamina;        
+    }
+    private void FixedUpdate()
+    {
+        if (!gameObject.GetComponent<Animator>().GetBool("IsInteracting")&&currentStamina<maxStamina)
+            currentStamina += staminaRecoveryValue * Time.fixedDeltaTime;
     }
 }

@@ -12,10 +12,11 @@ namespace SoulItem
         public WeaponItem unarmedWeapon;
         public WeaponItem[] weaponsInRightHandSlots = new WeaponItem[1];
         public WeaponItem[] weaponsInLeftHandSlots = new WeaponItem[1];
-
-        public int currenRightWeaponIndex = 0;
-        public int currenLeftWeaponIndex = 0;
+        bool interactibleKey;
+        [HideInInspector]public int currenRightWeaponIndex = 0;
+        [HideInInspector]public int currenLeftWeaponIndex = 0;
         public List<WeaponItem> weaponsInventory;
+        [SerializeField]float radius;
         private void Awake()
         {
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
@@ -73,6 +74,30 @@ namespace SoulItem
         private void Update()
         {
             HandleQuickSlot();
+            interactibleKey = Input.GetKeyDown(KeyCode.E);
+            if (interactibleKey)
+            {
+                CheckForInteractible();
+            }
+        }
+        public void CheckForInteractible()
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position,radius);
+            foreach (var hitCollider in colliders)
+            {
+                if(hitCollider.tag == "Interactible")
+                {
+                    if (hitCollider.GetComponent<WeaponPickup>())
+                    {
+                        hitCollider.GetComponent<WeaponPickup>().Interact();
+                    }
+                }
+            }
+        }
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, radius);
         }
     }
     
