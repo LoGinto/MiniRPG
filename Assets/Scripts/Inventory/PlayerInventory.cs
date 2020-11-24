@@ -17,6 +17,11 @@ namespace SoulItem
         [HideInInspector]public int currenLeftWeaponIndex = 0;
         public List<WeaponItem> weaponsInventory;
         [SerializeField]float radius;
+        [SerializeField] float spherecastDist = 0.5f;
+        [SerializeField] GameObject interactibleUIGameObject;
+        public GameObject itemInteractibleUIGameObject;
+        InteractibleUI interactibleui; 
+        Interactible interactible = null;
         private void Awake()
         {
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
@@ -24,6 +29,7 @@ namespace SoulItem
         private void Start()
         {
             rightWeapon = unarmedWeapon;
+            interactibleui = FindObjectOfType<InteractibleUI>();
             leftWeapon = unarmedWeapon;
         }
         public void ChangeWeapon(int index,WeaponItem[] weapons,WeaponItem weapon,bool isLeft)
@@ -75,30 +81,46 @@ namespace SoulItem
         {
             HandleQuickSlot();
             interactibleKey = Input.GetKeyDown(KeyCode.E);
-            if (interactibleKey)
-            {
-                CheckForInteractible();
-            }
+            CheckForInteractible();
         }
         public void CheckForInteractible()
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position,radius);
-            foreach (var hitCollider in colliders)
+            RaycastHit hit;
+            if (Physics.SphereCast(transform.position,radius,transform.forward,out hit,spherecastDist))
             {
-                if(hitCollider.tag == "Interactible")
+                if(hit.collider.tag == "Interactible")
                 {
-                    if (hitCollider.GetComponent<WeaponPickup>())
+                    interactible = hit.collider.GetComponent<Interactible>();
+                    if(interactible != null)
                     {
-                        hitCollider.GetComponent<WeaponPickup>().Interact();
+                        string interactableText = interactible.interactibleText;
+                        interactibleui.interactibleText.text = interactableText;
+                        interactibleUIGameObject.SetActive(true);
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            hit.collider.GetComponent<Interactible>().Interact();
+                        }
+                    }
+                }
+                else
+                {
+                    if(interactibleUIGameObject != null)
+                    {
+                        interactibleUIGameObject.SetActive(false);
+                    }
+                    if(itemInteractibleUIGameObject != null && Input.GetKeyDown(KeyCode.E))
+                    {
+                        itemInteractibleUIGameObject.SetActive(false);
                     }
                 }
             }
-        }
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, radius);
+            //else
+            //{
+            //    interactibleUIGameObject.SetActive(false);
+            //    itemInteractibleUIGameObject.SetActive(false);
+            //}
         }
     }
+
     
 }

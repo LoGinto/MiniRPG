@@ -8,19 +8,20 @@ public class PlayerStats : MonoBehaviour
     public float currentStamina;
     public int staminaLevel = 10;
     public float rollDrain = 20f;
-    float staminaRecoveryValue;
     public Slider staminaSlider;
+    private float staminaRecoveryValue;
     private void Start()
     {
         staminaRecoveryValue = SetStaminaRecoveryValue();
         maxStamina = SetMax();
         currentStamina = maxStamina;
+        
     }
     float SetMax()
     {
-        maxStamina = staminaLevel *10;
+        maxStamina = staminaLevel * 10;
         return maxStamina;
-    }
+    } 
     float SetStaminaRecoveryValue()
     {
         staminaRecoveryValue = staminaLevel / 2;
@@ -36,11 +37,31 @@ public class PlayerStats : MonoBehaviour
     }
     private void Update()
     {
-        staminaSlider.value = currentStamina/maxStamina;        
+        staminaSlider.value = currentStamina / maxStamina;       
     }
     private void FixedUpdate()
     {
-        if (!gameObject.GetComponent<Animator>().GetBool("IsInteracting")&&currentStamina<maxStamina)
-            currentStamina += staminaRecoveryValue * Time.fixedDeltaTime;
+        if (currentStamina < maxStamina)
+        {
+            StartCoroutine(WaitoRefill());
+        }
+    }
+    IEnumerator WaitoRefill()
+    {
+        yield return new WaitForSeconds(3.5f);
+        while (currentStamina < maxStamina)
+        {
+            if (!gameObject.GetComponent<Animator>().GetBool("IsInteracting"))
+            {
+                currentStamina += staminaRecoveryValue * Time.deltaTime;
+                if (currentStamina >= maxStamina)
+                {
+                    break;
+                }
+                //yield return new WaitForEndOfFrame();               
+            }
+            yield return null;
+        }       
     }
 }
+
