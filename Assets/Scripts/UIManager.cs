@@ -6,18 +6,31 @@ using SoulItem;
 namespace RPG.UI { 
 public class UIManager : MonoBehaviour
 {
+        [Header("Windows")]
         public GameObject selectWindow;
         public GameObject hudUI;
         public GameObject weaponSlotPrefab;
         public GameObject weaponInventoryWindow;
+        public GameObject equipmentScreenWindow;
+        [Space(2)]
         bool inventoryOpen = false;
         public Transform weaponSlotParent;
         WeaponInventorySlot[] weaponSlots;
         public PlayerInventory inventoryScript;
-
+        EquipmentWindowUI equipmentWindowUI;
+        [Header("Selected slots")]
+        public bool rightHandSlot01Selected;
+        public bool rightHandSlot02Selected;
+        public bool leftHandSlot01Selected;
+        public bool leftHandSlot02Selected;
+        private void Awake()
+        {
+            equipmentWindowUI = FindObjectOfType<EquipmentWindowUI>();           
+        }
         private void Start()
         {
             weaponSlots = weaponSlotParent.GetComponentsInChildren<WeaponInventorySlot>();
+            equipmentWindowUI.LoadWeaponsOnEquipmentScreen(inventoryScript);
         }
         private void Update()
         {
@@ -25,7 +38,9 @@ public class UIManager : MonoBehaviour
         }
         void CloseAllInventoryWindows()
         {
+            ResetAllSelectedSlots();
             weaponInventoryWindow.SetActive(false);
+            equipmentScreenWindow.SetActive(false);
         }
         public void UpdateUI()
         {
@@ -63,6 +78,17 @@ public class UIManager : MonoBehaviour
                 hudUI.SetActive(true);
             }
             selectWindow.SetActive(inventoryOpen);
+        }
+        public void ResetAllSelectedSlots()
+        {
+            rightHandSlot02Selected = false;
+            rightHandSlot01Selected = false;
+            leftHandSlot01Selected = false;
+            leftHandSlot02Selected = false;
+         }
+        public EquipmentWindowUI GetEquipmentWindowUI()
+        {
+            return equipmentWindowUI;
         }
 }
 }

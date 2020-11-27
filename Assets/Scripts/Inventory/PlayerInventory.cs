@@ -28,9 +28,11 @@ namespace SoulItem
         }
         private void Start()
         {
-            rightWeapon = unarmedWeapon;
+            rightWeapon = weaponsInRightHandSlots[0];
+            leftWeapon = weaponsInLeftHandSlots[0];
             interactibleui = FindObjectOfType<InteractibleUI>();
-            leftWeapon = unarmedWeapon;
+            weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
+            weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
         }
         public void ChangeWeapon(int index,WeaponItem[] weapons,WeaponItem weapon,bool isLeft)
         {
