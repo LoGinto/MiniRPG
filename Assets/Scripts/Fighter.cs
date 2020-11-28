@@ -8,12 +8,16 @@ public class Fighter : MonoBehaviour
     AnimationPlayer animationPlayer;
     public string lastAttack;
     PlayerInventory inventory;
+    WeaponSlotManager slotManager;
     PlayerStats stats;
     bool canDoCombo;
     bool comboFlag;
+    bool handleTwoHand = false;
+    bool twoHandInput;
     private void Awake()
     {
         inventory = GetComponent<PlayerInventory>();
+        slotManager = FindObjectOfType<WeaponSlotManager>();      
     }
     private void Start()
     {
@@ -26,6 +30,7 @@ public class Fighter : MonoBehaviour
         if (comboFlag)
         {
             animationPlayer.GetAnimator().SetBool("CanDoCombo", false);
+
             if (lastAttack == weapon.On_Light_Attack_1)
             {
                 animationPlayer.PlayerTargetAnim(weapon.On_Light_Attack_2, true);
@@ -34,17 +39,45 @@ public class Fighter : MonoBehaviour
             {
                 animationPlayer.PlayerTargetAnim(weapon.On_Heavy_Attack_2, true);
             }
+            else if(lastAttack == weapon.On_Light_THA_01)
+            {
+                //play light attack number 2
+                animationPlayer.PlayerTargetAnim(weapon.On_Light_THA_02, true);
+            }
+            else if(lastAttack == weapon.On_Heavy_THA_01)
+            {
+                //play heavy attack number 2 
+                animationPlayer.PlayerTargetAnim(weapon.On_Heavy_THA_02, true);
+            }
         }
+        
     }
     public void HandleLightAttack(WeaponItem weapon)
     {
-        animationPlayer.PlayerTargetAnim(weapon.On_Light_Attack_1, true);
-        lastAttack = weapon.On_Light_Attack_1;
+        slotManager.SetAttackingWeaponItem(weapon);
+        if (handleTwoHand)
+        {
+            animationPlayer.PlayerTargetAnim(weapon.On_Light_THA_01,true);
+            lastAttack = weapon.On_Light_THA_01;
+        }
+        else
+        {
+            animationPlayer.PlayerTargetAnim(weapon.On_Light_Attack_1, true);
+            lastAttack = weapon.On_Light_Attack_1;
+        }
     }
     public void HandleHeavyAttack(WeaponItem weapon)
     {
-        animationPlayer.PlayerTargetAnim(weapon.On_Heavy_Attack_1, true);
-        lastAttack = weapon.On_Heavy_Attack_1;
+        slotManager.SetAttackingWeaponItem(weapon);
+        if (handleTwoHand) {
+            animationPlayer.PlayerTargetAnim(weapon.On_Heavy_THA_01, true);
+            lastAttack = weapon.On_Heavy_THA_01;
+        }
+        else
+        {
+            animationPlayer.PlayerTargetAnim(weapon.On_Heavy_Attack_1, true);
+            lastAttack = weapon.On_Heavy_Attack_1;
+        }
     }
     private void Update()
     {
@@ -53,6 +86,7 @@ public class Fighter : MonoBehaviour
         {
             HandleAttacks();
         }
+        HandleTwoHandInput(); 
     }
     public bool GetCanDoCombo()
     {
@@ -111,5 +145,26 @@ public class Fighter : MonoBehaviour
     public void TakeLightStaminaAnimationEvent()
     {
         stats.TakeStamina(inventory.rightWeapon.baseStaminaDrain * inventory.rightWeapon.lightAttackMultiplier);
+    }
+    void HandleTwoHandInput()
+    {
+        twoHandInput = Input.GetKeyDown(KeyCode.T);
+        if (twoHandInput == true)
+        {
+            handleTwoHand = !handleTwoHand;
+        }
+        if (handleTwoHand)
+        {
+            slotManager.LoadWeaponOnSlot(inventory.rightWeapon, false);
+        }
+        else
+        {
+            slotManager.LoadWeaponOnSlot(inventory.rightWeapon, false);
+            slotManager.LoadWeaponOnSlot(inventory.leftWeapon, true);
+        }
+    }
+    public bool GetHandlingWithTwoHandValue()
+    {
+        return handleTwoHand;
     }
 }

@@ -23,5 +23,10 @@ MonoBehaviour:
   On_Heavy_Attack_1: standing_melee_attack_backhand
   On_Light_Attack_2: standing_melee_attack_downward
   On_Heavy_Attack_2: standing_melee_attack_horizontal
+  On_Light_THA_01: TH_Light
+  On_Heavy_THA_01: TH_Heavy
+  On_Light_THA_02: TH_Light
+  On_Heavy_THA_02: TH_Heavy_02
   right_hand_idle: Right_Arm_Idle_01
   left_hand_idle: Left_Arm_Idle_01
+  th_idle: Two_Hand_Sword_Idle_01

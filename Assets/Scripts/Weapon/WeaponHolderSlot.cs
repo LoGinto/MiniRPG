@@ -9,9 +9,9 @@ namespace SoulItem
         public Transform parentOvveride;
         public bool isLeftSlot;
         public bool isRightHandSlot;
-
+        public bool isBackSlot;
         public GameObject currentWeaponModel;
-
+        public WeaponItem currentWeapon;
 
         public  void UnloadWeapon()
         {

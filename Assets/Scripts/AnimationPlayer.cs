@@ -30,7 +30,7 @@ public class AnimationPlayer : MonoBehaviour
     }
     private void Update()
     {
-        if (this.animator.GetCurrentAnimatorStateInfo(3).IsName("ZeroState"))
+        if (this.animator.GetCurrentAnimatorStateInfo(4).IsName("ZeroState"))
         {
             StartCoroutine(Wait());
         }
