@@ -28,7 +28,10 @@ public class Movement : MonoBehaviour
     {
         isInteracting = animator.GetBool("IsInteracting");
         HandleRollInput();
-        Move();
+        if (gameObject.GetComponent<LockOn>().GetLockState() == false)
+        {
+            Move();
+        }
         rollFlag = false;
     }
     
@@ -55,12 +58,17 @@ public class Movement : MonoBehaviour
         //animator.SetBool("Walk", true);
         actualMovement.y -= gravity;
         characterController.Move(actualMovement);
-        MovementBlendTree(verticalAxis, horizontalAxis);
+        BaseMovementBlendTree(verticalAxis, horizontalAxis);
+        Roll(verticalAxis, horizontalAxis, actualMovement);
+    }
+
+    private void Roll(float verticalAxis, float horizontalAxis, Vector3 actualMovement)
+    {
         if (rollFlag)
         {
             if (stats.currentStamina >= stats.rollDrain)
             {
-                stats.RollDrain();    
+                stats.RollDrain();
                 if (verticalAxis != 0 || horizontalAxis != 0)
                 {
                     animationPlayer.PlayerTargetAnim("Roll", true);
@@ -73,10 +81,10 @@ public class Movement : MonoBehaviour
                     animationPlayer.PlayerTargetAnim("Dodge", true);
                 }
             }
-        }        
+        }
     }
 
-    private void MovementBlendTree(float verticalAxis, float horizontalAxis)
+    private void BaseMovementBlendTree(float verticalAxis, float horizontalAxis)
     {
         if (verticalAxis != 0)
         {
@@ -95,6 +103,14 @@ public class Movement : MonoBehaviour
     public bool GetRollFlag()
     {
         return rollFlag;
+    }
+    public float GetSpeed()
+    {
+        return speed;
+    }
+    public float GetGravity()
+    {
+        return gravity;
     }
 }
 
