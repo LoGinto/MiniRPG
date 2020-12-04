@@ -44,7 +44,7 @@ public class WeaponObject : ScriptableObject
     }
     public void HandTransformRegulator(GameObject gameObject,bool isTwoHanded)
     {
-        if (isTwoHanded)
+        if (!isTwoHanded)
         {
             gameObject.transform.localPosition = oneHandedEquipmentPosition;
             gameObject.transform.localEulerAngles = oneHandedEquipmentRotation;

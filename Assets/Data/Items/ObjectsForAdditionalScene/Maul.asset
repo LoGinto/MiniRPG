@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fe1a1950a866384e9d859d0cf6deec3, type: 3}
+  m_Name: Maul
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 6c1875c53dd6cc541934a704bbf10521, type: 3}
+  weaponOvveride: {fileID: 22100000, guid: 68b5105e22da8a242809c6b536d91c04, type: 2}
+  twoHandWeaponOvveride: {fileID: 22100000, guid: b5c89ebae7809b7409e0f4f51b9dafc4, type: 2}
+  baseStaminaDrain: 10
+  lightAttackMultiplier: 1
+  heavyAttackMultiplier: 1.3
+  baseDamage: 25
+  oneHandedEquipmentPosition: {x: 0.009, y: -0.062, z: -0.008}
+  twoHandedEquipmentPosition: {x: 0.011, y: -0.031, z: -54.199}
+  oneHandedEquipmentRotation: {x: 188.413, y: -87.32401, z: -82.64999}
+  twoHandedEquipmentRotation: {x: 63.345, y: 70.002, z: 89.318}
+  model: {fileID: 277905126585503060, guid: fd115e5b0d085094696f175da40ee478, type: 3}

@@ -56,9 +56,12 @@
     <Compile Include="Assets\Scripts\AnimationPlayer.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponHolderSlot.cs" />
     <Compile Include="Assets\Scripts\Movement.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
+    <Compile Include="Assets\Scripts\AdditionalSceneScript\BetterFighter.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponSlotManager.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponInventorySlot.cs" />
     <Compile Include="Assets\Scripts\Inventory\Interactible.cs" />
+    <Compile Include="Assets\Scripts\AdditionalSceneScript\WeaponObject.cs" />
     <Compile Include="Assets\Scripts\Inventory\QuickSlotUI.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\InteractibleUI.cs" />
@@ -72,11 +75,9 @@
     <Compile Include="Assets\Scripts\Inventory\PlayerInventory.cs" />
     <Compile Include="Assets\Scripts\ResetAnimatorBool.cs" />
     <Compile Include="Assets\Scripts\EquipmentWindowUI.cs" />
-    <Compile Include="Assets\Scripts\Fighter.cs" />
-    <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemy\IAI.cs" />
-    <Compile Include="Assets\Scripts\AdditionalSceneScript\BetterFighter.cs" />
-    <Compile Include="Assets\Scripts\AdditionalSceneScript\WeaponObject.cs" />
+    <Compile Include="Assets\Scripts\Fighter.cs" />
+    <Compile Include="Assets\Scripts\AdditionalSceneScript\BetterPickup.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\GameAssets\Trees_WorldSpace_FREE\Shaders\StandardRP\BarkShaderAS.shader" />

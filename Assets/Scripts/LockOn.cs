@@ -47,10 +47,21 @@ public class LockOn : MonoBehaviour
             {
                 freeLook.m_LookAt = lookAtTransform; 
                 LockBehavior();
-                if (Vector3.Distance(transform.position, lookAtTransform.position) > lookAtTransform.GetComponent<LockTransformGetter>().lockResetDist)
+                try
                 {
-                    isLocked = false;
-                    lookAtTransform = null;
+                    if (Vector3.Distance(transform.position, lookAtTransform.position) > lookAtTransform.GetComponent<LockTransformGetter>().lockResetDist)
+                    {
+                        isLocked = false;
+                        lookAtTransform = null;
+                    }
+                }
+                catch
+                {
+                    if (Vector3.Distance(transform.position, lookAtTransform.position) > lookAtTransform.GetComponentInParent<LockTransformGetter>().lockResetDist)
+                    {
+                        isLocked = false;
+                        lookAtTransform = null;
+                    }
                 }
             }
         }

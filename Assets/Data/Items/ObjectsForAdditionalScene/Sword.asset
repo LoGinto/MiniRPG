@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe1a1950a866384e9d859d0cf6deec3, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  weaponOvveride: {fileID: 0}
-  twoHandWeaponOvveride: {fileID: 0}
-  baseStaminaDrain: 0
-  lightAttackMultiplier: 0
-  heavyAttackMultiplier: 0
-  baseDamage: 0
-  oneHandedEquipmentPosition: {x: 0, y: 0, z: 0}
-  twoHandedEquipmentPosition: {x: 0, y: 0, z: 0}
-  oneHandedEquipmentRotation: {x: 0, y: 0, z: 0}
-  twoHandedEquipmentRotation: {x: 0, y: 0, z: 0}
-  model: {fileID: 0}
+  icon: {fileID: 21300000, guid: 6c1875c53dd6cc541934a704bbf10521, type: 3}
+  weaponOvveride: {fileID: 22100000, guid: 68b5105e22da8a242809c6b536d91c04, type: 2}
+  twoHandWeaponOvveride: {fileID: 22100000, guid: b5c89ebae7809b7409e0f4f51b9dafc4, type: 2}
+  baseStaminaDrain: 10
+  lightAttackMultiplier: 1
+  heavyAttackMultiplier: 1.3
+  baseDamage: 25
+  oneHandedEquipmentPosition: {x: 0.022, y: -0.03, z: 0.112}
+  twoHandedEquipmentPosition: {x: 0.011, y: -0.031, z: 0.112}
+  oneHandedEquipmentRotation: {x: 52.791, y: 99.063, z: 79.909}
+  twoHandedEquipmentRotation: {x: 63.345, y: 70.002, z: 89.318}
+  model: {fileID: 100000, guid: 217c7773b7f791347bb9cd7d97480c52, type: 3}
