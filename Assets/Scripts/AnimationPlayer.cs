@@ -22,7 +22,7 @@ public class AnimationPlayer : MonoBehaviour
     }
     public void EnableCombo()
     {
-        animator.SetBool("CanDoCombo", true);
+        animator.SetBool("CanDoCombo", true);         
     }
     public void DisableCombo()
     {

@@ -5401,7 +5401,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625093818}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9336369, y: 2.5000007, z: 0.36574316}
+  m_LocalPosition: {x: -1.26672, y: 2.5000007, z: -0.2962978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 770123458}
@@ -6117,8 +6117,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770123456}
-  m_LocalRotation: {x: 0.2448324, y: -0.53825915, z: 0.16703755, w: 0.78894407}
-  m_LocalPosition: {x: -0.38930154, y: 0.96004486, z: 0.15250492}
+  m_LocalRotation: {x: 0.32302964, y: -0.45037538, z: 0.1789731, w: 0.81288534}
+  m_LocalPosition: {x: -0.61461115, y: 1.5910761, z: 0.38439643}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1389561261}
@@ -6395,8 +6395,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078121410}
-  m_LocalRotation: {x: 0.13258077, y: -0.5562757, z: 0.09045357, w: 0.81535137}
-  m_LocalPosition: {x: -0.9336369, y: 2.5000007, z: 0.36574316}
+  m_LocalRotation: {x: 0.14039011, y: -0.47835052, z: 0.077782504, w: 0.8633778}
+  m_LocalPosition: {x: -1.26672, y: 2.5000007, z: -0.2962978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7420,7 +7420,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461236467}
-  m_LocalRotation: {x: 0.11776727, y: -0.55782515, z: 0.08034704, w: 0.8176224}
+  m_LocalRotation: {x: 0.1247041, y: -0.47968295, z: 0.06909174, w: 0.8657826}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -8649,7 +8649,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778415430}
-  m_LocalRotation: {x: 0.13258074, y: -0.5562757, z: 0.09045358, w: 0.8153514}
+  m_LocalRotation: {x: 0.1403901, y: -0.47835055, z: 0.0777825, w: 0.86337787}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -16325,6 +16325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponObject: {fileID: 0}
+  attackSpeed: 1.5
   equipmentParent: {fileID: 4959247759874348715}
   forwardKey: 111
   backKey: 108
