@@ -5,23 +5,33 @@ using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour
 {
     public float maxStamina;
+    public int level = 10;
     public float currentStamina;
     public int staminaLevel = 10;
+    public float health = 0;
+    float maxHealth;
     public float rollDrain = 20f;
     public Slider staminaSlider;
+    public Slider healthSlider;
     private float staminaRecoveryValue;
     private void Start()
     {
         staminaRecoveryValue = SetStaminaRecoveryValue();
-        maxStamina = SetMax();
+        maxStamina = SetMaxStamina();
         currentStamina = maxStamina;
-        
+        maxHealth = SetMaxHealth();
+        health = maxHealth;
     }
-    float SetMax()
+    float SetMaxStamina()
     {
         maxStamina = staminaLevel * 10;
         return maxStamina;
     } 
+    float SetMaxHealth()
+    {
+        maxHealth = level * 10;
+        return maxHealth;
+    }
     float SetStaminaRecoveryValue()
     {
         staminaRecoveryValue = staminaLevel / 2;
@@ -37,7 +47,8 @@ public class PlayerStats : MonoBehaviour
     }
     private void Update()
     {
-        staminaSlider.value = currentStamina / maxStamina;       
+        staminaSlider.value = currentStamina / maxStamina;
+        healthSlider.value = health / maxHealth;
     }
     private void FixedUpdate()
     {
