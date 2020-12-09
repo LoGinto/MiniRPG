@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
     bool isInteracting;
     Camera myCamera;
     CharacterController characterController;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -26,23 +27,28 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animator.SetBool("IsLocked", gameObject.GetComponent<LockOn>().GetLockState());       
         isInteracting = animator.GetBool("IsInteracting");
-        HandleRollInput();
+        HandleRollInput();         
         if (gameObject.GetComponent<LockOn>().GetLockState() == false)
         {
+            animator.SetLayerWeight(1, 0);
             Move();
         }
+        else
+        {
+            animator.SetLayerWeight(1, 1);
+            LockedMove();
+        }
         rollFlag = false;
-    }
-    
+    }    
     void HandleRollInput()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rollFlag = true;
         }
-    }
-    
+    }   
     void Move()
     {
         if (animator.GetBool("IsInteracting"))
@@ -61,7 +67,12 @@ public class Movement : MonoBehaviour
         BaseMovementBlendTree(verticalAxis, horizontalAxis);
         Roll(verticalAxis, horizontalAxis, actualMovement);
     }
-
+    void LockedMove()
+    {
+        //blend tree for strafing in locked movement
+        animator.SetFloat("xInput", Input.GetAxis("Horizontal"));
+        animator.SetFloat("yInput", Input.GetAxis("Vertical"));
+    }
     private void Roll(float verticalAxis, float horizontalAxis, Vector3 actualMovement)
     {
         if (rollFlag)

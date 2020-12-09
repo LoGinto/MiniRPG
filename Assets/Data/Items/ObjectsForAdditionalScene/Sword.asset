@@ -24,3 +24,7 @@ MonoBehaviour:
   oneHandedEquipmentRotation: {x: 52.791, y: 99.063, z: 79.909}
   twoHandedEquipmentRotation: {x: 63.345, y: 70.002, z: 89.318}
   model: {fileID: 100000, guid: 217c7773b7f791347bb9cd7d97480c52, type: 3}
+  lightAttackImpactAnimName: standing_react_large_from_left
+  lightAttack2ImpactAnimName: standing_react_large_from_left
+  heavyAttackImpactAnimName: standing_react_large_gut
+  heavyAttack2ImpactAnimName: standing_react_large_gut

@@ -24,6 +24,12 @@ public class WeaponObject : ScriptableObject
     public Vector3 twoHandedEquipmentRotation;//local 
     [Header("Prefab model")]
     public GameObject model;
+    [Header("enemy impact anims")]
+    public string lightAttackImpactAnimName;
+    public string lightAttack2ImpactAnimName;
+    public string heavyAttackImpactAnimName;
+    public string heavyAttack2ImpactAnimName;
+
     GameObject instance;
     public float DamageCalculator(int level)
     {

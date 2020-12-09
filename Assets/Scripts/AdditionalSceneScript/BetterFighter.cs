@@ -254,4 +254,8 @@ public class BetterFighter : MonoBehaviour
             }
         }
     }
+    public string GetLastAttack()
+    {
+        return lastAttack;
+    }
 }

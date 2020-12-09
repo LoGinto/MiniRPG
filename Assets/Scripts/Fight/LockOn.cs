@@ -100,7 +100,8 @@ public class LockOn : MonoBehaviour
     }
     void LockBehavior()
     {
-        transform.LookAt(lookAtTransform);
+        Vector3 targetPosition = new Vector3(lookAtTransform.position.x, transform.position.y, lookAtTransform.transform.position.z); 
+        transform.LookAt(targetPosition);
         targetMovement  = transform.forward * Input.GetAxis("Vertical") *lockOnMovementSpeed;
         targetMovement += transform.right * Input.GetAxis("Horizontal") * lockOnMovementSpeed ;
         targetMovement.y -= movement.GetGravity();
