@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Impacter : MonoBehaviour
 {
     //base damage dealing class
@@ -9,6 +10,7 @@ public class Impacter : MonoBehaviour
     [SerializeField] WeaponObject weaponObject;
     private void Start()
     {
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
         CalculateDamage();
     }
     private void Update()

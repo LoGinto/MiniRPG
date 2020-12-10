@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 80be72ffc0135ee4f8cfe6a4c6d1c137, type: 2}
 --- !u!1 &5286588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2018,6 +2018,7 @@ GameObject:
   - component: {fileID: 306358157}
   - component: {fileID: 306358159}
   - component: {fileID: 306358161}
+  - component: {fileID: 306358163}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Enemy
@@ -2040,6 +2041,7 @@ MonoBehaviour:
   spottingDist: 5
   attackingDist: 1.5
   loseSightDist: 7
+  runSpeed: 4
   state: 0
   actionState: 0
 --- !u!1 &306358154
@@ -2180,6 +2182,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!195 &306358163
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306358152}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &306358164
 GameObject:
   m_ObjectHideFlags: 0
@@ -6300,7 +6324,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770123456}
-  m_LocalRotation: {x: 0.17639275, y: -0.14807756, z: 0.026851581, w: 0.9727475}
+  m_LocalRotation: {x: 0.17639275, y: -0.14807755, z: 0.026851574, w: 0.9727475}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6741,7 +6765,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078121410}
-  m_LocalRotation: {x: 0.15866981, y: -0.14854153, z: 0.024153689, w: 0.97579503}
+  m_LocalRotation: {x: 0.1586698, y: -0.14854148, z: 0.02415368, w: 0.97579503}
   m_LocalPosition: {x: -3.4678292, y: 2.5000007, z: -1.9940689}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -9159,7 +9183,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778415430}
-  m_LocalRotation: {x: 0.15866978, y: -0.1485415, z: 0.024153685, w: 0.97579503}
+  m_LocalRotation: {x: 0.15866978, y: -0.14854147, z: 0.02415368, w: 0.97579503}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

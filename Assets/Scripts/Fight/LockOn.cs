@@ -117,4 +117,8 @@ public class LockOn : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, sweepRadius);
     }
+    public Vector3 GetTargetMovementLock()
+    {
+        return targetMovement; 
+    }
 }

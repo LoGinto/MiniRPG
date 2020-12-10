@@ -72,6 +72,7 @@ public class Movement : MonoBehaviour
         //blend tree for strafing in locked movement
         animator.SetFloat("xInput", Input.GetAxis("Horizontal"));
         animator.SetFloat("yInput", Input.GetAxis("Vertical"));
+        DodgeInLock();
     }
     private void Roll(float verticalAxis, float horizontalAxis, Vector3 actualMovement)
     {
@@ -94,7 +95,27 @@ public class Movement : MonoBehaviour
             }
         }
     }
-
+    private void DodgeInLock()
+    {
+        if (rollFlag)
+        {
+            if (stats.currentStamina >= stats.rollDrain)
+            {
+                stats.RollDrain();
+                if (Input.GetAxis("Horizontal")<0) {
+                    animationPlayer.PlayerTargetAnim("DodgeLeft", true);
+                 }
+                else if(Input.GetAxis("Horizontal")>0)
+                {
+                    animationPlayer.PlayerTargetAnim("DodgeRight", true);
+                }
+                else
+                {
+                    animationPlayer.PlayerTargetAnim("Dodge", true);
+                }
+            }
+        }
+    }
     private void BaseMovementBlendTree(float verticalAxis, float horizontalAxis)
     {
         if (verticalAxis != 0)

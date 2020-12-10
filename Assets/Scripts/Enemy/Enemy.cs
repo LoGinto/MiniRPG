@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
+//using UnityEditor.Animations;
 public class Enemy : MonoBehaviour,IAI
-{
+{    
     //base class
     public enum States
     {
@@ -18,12 +19,19 @@ public class Enemy : MonoBehaviour,IAI
     [SerializeField] float spottingDist;
     [SerializeField] float attackingDist;
     [SerializeField] float loseSightDist;
+    [SerializeField] float runSpeed = 12;
+    [HideInInspector]NavMeshAgent navMeshAgent;
+    [HideInInspector]Animator animator;
+    
     public States state = States.calm;
     public ActionState actionState = ActionState.calmBehavior;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();                
+        navMeshAgent.speed = runSpeed;                       
     }
     // Update is called once per frame
     void Update()
@@ -34,6 +42,7 @@ public class Enemy : MonoBehaviour,IAI
     public virtual void TickBehavior()
     {
         StateChange();
+       // AIMove();
         if(actionState == ActionState.calmBehavior)
         {
             Calm();
@@ -57,7 +66,10 @@ public class Enemy : MonoBehaviour,IAI
     }
     public virtual void Chase()
     {
-        Debug.Log(gameObject.name + " chases");
+        if (IsFarTo(attackingDist))
+        {
+            navMeshAgent.SetDestination(player.transform.position);
+        }              
     }
     public virtual void Calm()
     {
@@ -66,6 +78,7 @@ public class Enemy : MonoBehaviour,IAI
     public virtual void AIMove()
     {
         //animations and movement logic in general
+        animator.SetFloat("Blend", navMeshAgent.velocity.magnitude);
     }
     public virtual void LostSight()
     {
