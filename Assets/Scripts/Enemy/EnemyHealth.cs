@@ -30,7 +30,7 @@ public class EnemyHealth : HealthManager
         showHealthBar = true;
         health -= damage;
         try
-        {
+        {           
             if (betterFighter.GetLastAttack() == "LightAttack1")
             {
                 animator.CrossFade(betterFighter.weaponObject.lightAttackImpactAnimName, 0.1f);

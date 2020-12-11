@@ -31,45 +31,59 @@ public class Enemy : MonoBehaviour,IAI
         player = GameObject.FindGameObjectWithTag("Player");
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();                
-        navMeshAgent.speed = runSpeed;                       
+        navMeshAgent.speed = runSpeed;
+       
     }
     // Update is called once per frame
     void Update()
     {
         TickBehavior();
         AIMove();
+        if (this.animator.GetCurrentAnimatorStateInfo(1).IsName("Zero"))
+        {
+            animator.SetBool("IsInteracting", false);
+        }
     }
     public virtual void TickBehavior()
     {
-        StateChange();
-       // AIMove();
-        if(actionState == ActionState.calmBehavior)
-        {
-            Calm();
-        }
-        else if(state == States.agressive && actionState == ActionState.chasing)
-        {
-            Chase();
-        }
-        else if (state == States.agressive && actionState == ActionState.attacking)
-        {
-            Attack();
-        }
-        else if(state == States.agressive && actionState == ActionState.lostSight)
-        {
-            LostSight();
-        }
+            StateChange();
+            // AIMove();               
+            if (actionState == ActionState.calmBehavior)
+            {
+                Calm();
+            }
+            else if (state == States.agressive && actionState == ActionState.chasing)
+            {
+                Chase();
+            }
+            else if (state == States.agressive && actionState == ActionState.attacking)
+            {
+                Attack();
+            }
+            else if (state == States.agressive && actionState == ActionState.lostSight)
+            {
+                LostSight();
+            }
+        
     }
     public virtual void Attack()
     {
-        Debug.Log(gameObject.name + " attacks");
+        if (animator.GetBool("IsInteracting"))
+        {
+            return;
+        }
+            navMeshAgent.isStopped = true;
+            Vector3 lookAttransform = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+            transform.LookAt(lookAttransform);
+            EnemyTargetAnim("HorizontalAttack",true);//test purpose                
     }
     public virtual void Chase()
     {
-        if (IsFarTo(attackingDist))
-        {
+        //if (IsFarTo(attackingDist))
+        //{
+            navMeshAgent.isStopped = false;
             navMeshAgent.SetDestination(player.transform.position);
-        }              
+        //}              
     }
     public virtual void Calm()
     {
@@ -77,8 +91,15 @@ public class Enemy : MonoBehaviour,IAI
     }
     public virtual void AIMove()
     {
+        if (navMeshAgent.velocity.magnitude > 0)
+        {
+            animator.SetBool("Run", true);
+            //animator.SetLayerWeight(1, 0);
+        }
+        else
+        { animator.SetBool("Run", false); }
         //animations and movement logic in general
-        animator.SetFloat("Blend", navMeshAgent.velocity.magnitude);
+        //animator.SetFloat("BlendMove", navMeshAgent.velocity.magnitude/navMeshAgent.speed);
     }
     public virtual void LostSight()
     {
@@ -140,5 +161,11 @@ public class Enemy : MonoBehaviour,IAI
     public bool IsCloseTo(float dist)
     {
         return Vector3.Distance(transform.position, player.transform.position) <= dist;
+    }
+    public virtual void EnemyTargetAnim(string targetAnim, bool isInteracting)
+    {
+        animator.applyRootMotion = isInteracting;
+        animator.SetBool("IsInteracting", isInteracting);
+        animator.CrossFade(targetAnim, 0.2f);
     }
 }
