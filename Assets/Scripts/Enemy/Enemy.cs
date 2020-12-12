@@ -16,13 +16,18 @@ public class Enemy : MonoBehaviour,IAI
     }
     GameObject player;
     bool sight;
+    bool comboChance;
     [SerializeField] float spottingDist;
     [SerializeField] float attackingDist;
     [SerializeField] float loseSightDist;
     [SerializeField] float runSpeed = 12;
+    [SerializeField]private float attackCoolDown = 2f;
+    [SerializeField] EnemyStat enemyStat;
     [HideInInspector]NavMeshAgent navMeshAgent;
-    [HideInInspector]Animator animator;
-    
+    [HideInInspector]Animator animator;    
+    [HideInInspector]Vector3 lookAtPlayer;
+    string lastAttack;
+    private float actualCoolDown = 0;
     public States state = States.calm;
     public ActionState actionState = ActionState.calmBehavior;
     // Start is called before the first frame update
@@ -37,6 +42,7 @@ public class Enemy : MonoBehaviour,IAI
     // Update is called once per frame
     void Update()
     {
+        comboChance = Random.value < 0.25f;
         TickBehavior();
         AIMove();
         if (this.animator.GetCurrentAnimatorStateInfo(1).IsName("Zero"))
@@ -68,14 +74,91 @@ public class Enemy : MonoBehaviour,IAI
     }
     public virtual void Attack()
     {
-        if (animator.GetBool("IsInteracting"))
+        navMeshAgent.isStopped = true;
+        lookAtPlayer = new Vector3(player.transform.position.x,transform.position.y,player.transform.position.z);
+        //play attack anim
+        if (actualCoolDown > 0)
         {
-            return;
+            actualCoolDown -= 1 * Time.deltaTime;
         }
-            navMeshAgent.isStopped = true;
-            Vector3 lookAttransform = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
-            transform.LookAt(lookAttransform);
-            EnemyTargetAnim("HorizontalAttack",true);//test purpose                
+        else 
+        {
+            if (!animator.GetBool("IsInteracting"))
+            {
+                if (!comboChance)
+                {
+                    if (lastAttack == enemyStat.attackAnim1)
+                    {
+                        if (enemyStat.attackAnim2 != "")
+                        {
+                            EnemyTargetAnim(enemyStat.attackAnim2, true);
+                            lastAttack = enemyStat.attackAnim2;
+                        }
+                        else
+                        {
+                            EnemyTargetAnim(enemyStat.attackAnim1, true);
+                            lastAttack = enemyStat.attackAnim1;
+                        }
+                    }
+                    else if (lastAttack == enemyStat.attackAnim2)
+                    {
+                        if (enemyStat.attackAnim3 != "")
+                        {
+                            EnemyTargetAnim(enemyStat.attackAnim3, true);
+                            lastAttack = enemyStat.attackAnim3;
+                        }
+                        else
+                        {
+                            EnemyTargetAnim(enemyStat.attackAnim1, true);
+                            lastAttack = enemyStat.attackAnim1;
+                        }
+
+                    }
+                    else if (lastAttack == enemyStat.attackAnim3)
+                    {
+                        if (enemyStat.attackAnim4 != "")
+                        {
+                            EnemyTargetAnim(enemyStat.attackAnim4, true);
+                            lastAttack = enemyStat.attackAnim4;
+                        }
+                        else
+                        {
+                            EnemyTargetAnim(enemyStat.attackAnim1, true);
+                            lastAttack = enemyStat.attackAnim1;
+                        }
+                    }
+                    else
+                    {
+                        EnemyTargetAnim(enemyStat.attackAnim1, true);
+                        lastAttack = enemyStat.attackAnim1;
+                    }
+                }
+                else
+                {
+                    //do combo 
+                    //last attack = combo  so we go back to attack anim1
+                    
+                        int randomValueN2 = Random.Range(1, 3);
+                        if(randomValueN2 == 1)
+                        {
+                            if (enemyStat.combo1 != "")
+                            {
+                                EnemyTargetAnim(enemyStat.combo1, true);
+                                lastAttack = enemyStat.combo1;
+                            }
+                        }
+                        else
+                        {
+                            if (enemyStat.combo2 != "")
+                            {
+                                EnemyTargetAnim(enemyStat.combo2, true);
+                                lastAttack = enemyStat.combo2;
+                            }
+                        }                    
+                }
+            }
+            actualCoolDown = attackCoolDown;
+        }
     }
     public virtual void Chase()
     {
