@@ -11,4 +11,5 @@ public interface IAI
     void StateChange();
     void TickBehavior();
     void AIMove();
+    EnemyStat GetEnemyStat();
 }

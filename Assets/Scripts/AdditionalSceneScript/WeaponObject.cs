@@ -29,7 +29,6 @@ public class WeaponObject : ScriptableObject
     public string lightAttack2ImpactAnimName;
     public string heavyAttackImpactAnimName;
     public string heavyAttack2ImpactAnimName;
-
     GameObject instance;
     public float DamageCalculator(int level)
     {
@@ -40,12 +39,12 @@ public class WeaponObject : ScriptableObject
         if (!twoHanded)
         {
             instance = Instantiate(model, parent);
-            HandTransformRegulator(instance, true);
+            HandTransformRegulator(instance, false);
         }
         else
         {
             instance = Instantiate(model, parent);
-            HandTransformRegulator(instance, false);
+            HandTransformRegulator(instance, true);
         }
     }
     public void HandTransformRegulator(GameObject gameObject,bool isTwoHanded)

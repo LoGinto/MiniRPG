@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class DamageColliders : MonoBehaviour
 {
-    Collider weaponCollider = null;
+    private Collider weaponCollider = null;
     private void Awake()
     {
         AssignWeaponCollider();
     }
-    private void AssignWeaponCollider()
+    public virtual void AssignWeaponCollider()
     {
         if (weaponCollider == null)
         {
             if (gameObject.GetComponent<BetterFighter>().weaponObject != null)
             {
+                //get instance's collider
                 weaponCollider = gameObject.GetComponent<BetterFighter>().weaponObject.GetInstance().GetComponent<Collider>();
             }
         }
@@ -23,7 +24,7 @@ public class DamageColliders : MonoBehaviour
     {
         AssignWeaponCollider();
     }
-    public void TurnOnColliderAnim()
+    public virtual void TurnOnColliderAnim()
     {
         if (weaponCollider != null)
         {
@@ -31,7 +32,7 @@ public class DamageColliders : MonoBehaviour
             //Debug.Log("Weapon enabled");
         }
     }
-    public void TurnOffColliderAnim()
+    public virtual void TurnOffColliderAnim()
     {
         if (weaponCollider != null)
         {

@@ -7,10 +7,12 @@ public class Impacter : MonoBehaviour
 {
     //base damage dealing class
     private float dealingDamage;
-    [SerializeField] WeaponObject weaponObject;
+    public WeaponObject weaponObject;
+    GameObject player;
     private void Start()
     {
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        player = GameObject.FindGameObjectWithTag("Player");
         CalculateDamage();
     }
     private void Update()
@@ -29,7 +31,7 @@ public class Impacter : MonoBehaviour
     }
     public virtual bool CanDamage()
     {
-        return FindObjectOfType<DamageColliders>().GetWeaponCollider().enabled;
+        return player.GetComponent<DamageColliders>().GetWeaponCollider().enabled;
     }
     private void OnCollisionEnter(Collision collision)
     {

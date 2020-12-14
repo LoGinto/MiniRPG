@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Knight1
   m_EditorClassIdentifier: 
   level: 10
+  attackCoolDown: 2
   attackAnim1: HorizontalAttack
   attackAnim2: 
   attackAnim3: 
   attackAnim4: 
+  comboChance: 0.25
   combo1: Combo1
   combo2: Combo1

@@ -21,34 +21,45 @@ public class Enemy : MonoBehaviour,IAI
     [SerializeField] float attackingDist;
     [SerializeField] float loseSightDist;
     [SerializeField] float runSpeed = 12;
-    [SerializeField]private float attackCoolDown = 2f;
+    [SerializeField] float rotationSpeed = 35f;//angular speed in degrees
     [SerializeField] EnemyStat enemyStat;
+    public WeaponObject weaponObject;
+    public Transform parentForMelee;
     [HideInInspector]NavMeshAgent navMeshAgent;
     [HideInInspector]Animator animator;    
     [HideInInspector]Vector3 lookAtPlayer;
     string lastAttack;
     private float actualCoolDown = 0;
+    bool isHavingattackAnim;
     public States state = States.calm;
+    //private GameObject inst;
     public ActionState actionState = ActionState.calmBehavior;
     // Start is called before the first frame update
+   void Awake()
+    {
+        AssignWeapon();
+    }
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();                
         navMeshAgent.speed = runSpeed;
-       
+        
     }
     // Update is called once per frame
     void Update()
     {
-        comboChance = Random.value < 0.25f;
+        comboChance = Random.value < enemyStat.comboChance;
         TickBehavior();
         AIMove();
         if (this.animator.GetCurrentAnimatorStateInfo(1).IsName("Zero"))
         {
             animator.SetBool("IsInteracting", false);
         }
+        isHavingattackAnim =
+             this.animator.GetCurrentAnimatorStateInfo(1).IsName(enemyStat.attackAnim1) || this.animator.GetCurrentAnimatorStateInfo(1).IsName(enemyStat.attackAnim2) || this.animator.GetCurrentAnimatorStateInfo(1).IsName(enemyStat.attackAnim3) || this.animator.GetCurrentAnimatorStateInfo(1).IsName(enemyStat.attackAnim4) || this.animator.GetCurrentAnimatorStateInfo(1).IsName(enemyStat.combo1) || this.animator.GetCurrentAnimatorStateInfo(1).IsName(enemyStat.combo2);
+        lookAtPlayer = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
     }
     public virtual void TickBehavior()
     {
@@ -74,8 +85,7 @@ public class Enemy : MonoBehaviour,IAI
     }
     public virtual void Attack()
     {
-        navMeshAgent.isStopped = true;
-        lookAtPlayer = new Vector3(player.transform.position.x,transform.position.y,player.transform.position.z);
+        navMeshAgent.isStopped = true;      
         //play attack anim
         if (actualCoolDown > 0)
         {
@@ -84,9 +94,10 @@ public class Enemy : MonoBehaviour,IAI
         else 
         {
             if (!animator.GetBool("IsInteracting"))
-            {
+            {                
                 if (!comboChance)
                 {
+                    transform.LookAt(lookAtPlayer);
                     if (lastAttack == enemyStat.attackAnim1)
                     {
                         if (enemyStat.attackAnim2 != "")
@@ -157,16 +168,16 @@ public class Enemy : MonoBehaviour,IAI
                         }                    
                 }
             }
-            actualCoolDown = attackCoolDown;
+            actualCoolDown = enemyStat.attackCoolDown;
         }
     }
     public virtual void Chase()
-    {
-        //if (IsFarTo(attackingDist))
-        //{
+    {        
+        if (!isHavingattackAnim)
+        {
             navMeshAgent.isStopped = false;
             navMeshAgent.SetDestination(player.transform.position);
-        //}              
+        }        
     }
     public virtual void Calm()
     {
@@ -250,5 +261,16 @@ public class Enemy : MonoBehaviour,IAI
         animator.applyRootMotion = isInteracting;
         animator.SetBool("IsInteracting", isInteracting);
         animator.CrossFade(targetAnim, 0.2f);
+    }
+    public EnemyStat GetEnemyStat()
+    {
+        return enemyStat;
+    }
+    void AssignWeapon()
+    {
+        if(weaponObject != null)
+        {           
+            weaponObject.EquipOn(false,parentForMelee);            
+        }
     }
 }
