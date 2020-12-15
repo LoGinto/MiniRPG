@@ -34,7 +34,7 @@ public class EnemyDamageCollider : MonoBehaviour
                 catch
                 {
                     enemyWeaponCollider = GameObject.Find(GetComponent<Enemy>().weaponObject.GetInstance().name).GetComponent<Collider>();
-                }
+                }              
             }
         }
     }

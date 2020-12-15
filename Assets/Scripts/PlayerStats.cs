@@ -6,6 +6,7 @@ public class PlayerStats : MonoBehaviour
 {
     public float maxStamina;
     public int level = 10;
+    public int soulsCount = 0;
     public float currentStamina;
     public int staminaLevel = 10;
     public float health = 0;

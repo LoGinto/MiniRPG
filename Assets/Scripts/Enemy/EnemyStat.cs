@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyStat : ScriptableObject
 {
     public int level;
-
+    public int soulDrop;
     [Header("Attack animations")]
     public float attackCoolDown = 2f;
     public string attackAnim1;

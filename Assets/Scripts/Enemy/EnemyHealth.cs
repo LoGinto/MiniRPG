@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 public class EnemyHealth : HealthManager
 {
     [SerializeField]EnemyStat enemyStat;
@@ -10,7 +11,8 @@ public class EnemyHealth : HealthManager
     bool showHealthBar = false;
     private float maxhealth;
     [HideInInspector]Animator animator;
-    [HideInInspector]BetterFighter betterFighter; 
+    [HideInInspector]BetterFighter betterFighter;
+    [SerializeField] UnityEvent deathEvent;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +53,13 @@ public class EnemyHealth : HealthManager
         catch
         {
             Debug.Log("Missing  impac animation on " + betterFighter.weaponObject);
+        }
+        if (health <= 0)
+        {
+            //death
+            animator.CrossFade("Death1", 0.2f);
+            FindObjectOfType<PlayerStats>().soulsCount += enemyStat.soulDrop;
+            deathEvent?.Invoke();
         }
     }
 }

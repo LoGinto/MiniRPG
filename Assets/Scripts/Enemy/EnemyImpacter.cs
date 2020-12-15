@@ -12,10 +12,13 @@ public class EnemyImpacter : MonoBehaviour
     {
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
-
+    void OnEnable()
+    {
+        gameObject.GetComponent<Collider>().isTrigger = true;
+    }
     // Update is called once per frame
     void Update()
-    {
+    {        
         try
         {
             if (CanDamage())
@@ -36,9 +39,12 @@ public class EnemyImpacter : MonoBehaviour
     {
         return GetComponentInParent<EnemyDamageCollider>().GetCollider().enabled;
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        //do damage
-        Debug.Log("Knight delivers " + dealingDamage + " to " + collision.collider.name); 
+        if (other.tag == "Player")
+        {
+            Debug.Log("Knight gives " + dealingDamage + "to " + other.name);
+            other.GetComponent<HealthManager>().TakeDamage(dealingDamage);
+        }
     }
 }
