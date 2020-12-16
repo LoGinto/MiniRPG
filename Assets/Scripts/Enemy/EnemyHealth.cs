@@ -62,4 +62,8 @@ public class EnemyHealth : HealthManager
             deathEvent?.Invoke();
         }
     }
+    public EnemyStat GetEnemyStat()
+    {
+        return enemyStat;
+    }
 }

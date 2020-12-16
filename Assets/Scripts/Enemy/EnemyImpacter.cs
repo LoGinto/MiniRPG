@@ -6,6 +6,8 @@ using UnityEngine;
 public class EnemyImpacter : MonoBehaviour
 {
     public WeaponObject enemyWeapon;
+    public float defaultWeaponDamageforError = 35f;
+    [SerializeField] EnemyStat enemyStat = null;
     float dealingDamage;
     // Start is called before the first frame update
     void Start()
@@ -33,7 +35,39 @@ public class EnemyImpacter : MonoBehaviour
     }
     void CalculateDamage()
     {
-        dealingDamage = enemyWeapon.DamageCalculator(gameObject.GetComponentInParent<Enemy>().GetEnemyStat().level); 
+        //f this method
+        try
+        {
+            dealingDamage = enemyWeapon.DamageCalculator(transform.root.GetComponentInParent<Enemy>().GetEnemyStat().level);
+        }
+        catch
+        {
+            try
+            {
+                dealingDamage = enemyWeapon.DamageCalculator(transform.root.GetComponentInParent<EnemyHealth>().GetEnemyStat().level);
+            }
+            catch
+            {
+                try
+                {
+                    if (enemyStat != null)
+                    {
+                        try
+                        {
+                            dealingDamage = enemyStat.level + enemyWeapon.baseDamage;
+                        }
+                        catch
+                        {
+                            dealingDamage = enemyWeapon.DamageCalculator(enemyStat.level);
+                        }
+                    }
+                }
+                catch
+                {
+                    dealingDamage = defaultWeaponDamageforError;
+                }
+            }
+        }
     }
     bool CanDamage()
     {

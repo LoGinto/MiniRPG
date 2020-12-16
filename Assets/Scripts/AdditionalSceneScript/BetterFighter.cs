@@ -71,7 +71,10 @@ public class BetterFighter : MonoBehaviour
         }
         if (weaponObject != null)
         {
-            AttackBehavior();
+            if (!gameObject.GetComponent<BetterInventory>().WeaponsInventoryIsOpen() && gameObject.GetComponent<BetterInventory>().InventoryIsOpen() == false&&gameObject.GetComponent<BetterInventory>().ClothInventoryIsOpen() == false)
+            {
+                AttackBehavior();
+            }
         }
     }
     void AttackBehavior()
@@ -101,8 +104,6 @@ public class BetterFighter : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            
-
             if (stats.currentStamina >= weaponObject.baseStaminaDrain * weaponObject.heavyAttackMultiplier)
             {
 
@@ -249,7 +250,10 @@ public class BetterFighter : MonoBehaviour
             if (Input.GetKeyDown(pickupKey))
             {
                 twoHand = false;
-                weaponsInBackPack.Add(other.GetComponent<BetterPickup>().Pickup());
+                if (other.GetComponent<BetterPickup>().IsPickedUp() == false)
+                {
+                    weaponsInBackPack.Add(other.GetComponent<BetterPickup>().Pickup());
+                }
                 Destroy(other.gameObject);
             }
         }
@@ -257,5 +261,15 @@ public class BetterFighter : MonoBehaviour
     public string GetLastAttack()
     {
         return lastAttack;
+    }
+    public void EquipWeaponFromInventory(int indexToEquip)
+    {
+        if (weaponObject != null)
+        {
+            Unequip(weaponObject);
+        }
+        weaponObject = weaponsInBackPack[indexToEquip];
+        animator.runtimeAnimatorController = weaponObject.weaponOvveride;
+        weaponObject.EquipOn(false, equipmentParent);
     }
 }
