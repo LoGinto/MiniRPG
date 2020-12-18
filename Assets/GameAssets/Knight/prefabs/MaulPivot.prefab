@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5632027834412567289}
   - component: {fileID: 767185931512539038}
   - component: {fileID: 14935259890168173}
-  - component: {fileID: 348181039996548350}
+  - component: {fileID: -3057817093108790517}
   m_Layer: 0
   m_Name: MaulPivot
   m_TagString: Untagged
@@ -63,7 +63,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &348181039996548350
+--- !u!114 &-3057817093108790517
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,10 +72,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 277905126585503060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e66d7c6d50121914f91a84565ece8dff, type: 3}
+  m_Script: {fileID: 11500000, guid: 92a0fb0192ca6984cb18af7fe9095c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyWeapon: {fileID: 11400000, guid: f617b158fffb3594ba949c77e8351b61, type: 2}
+  weaponObject: {fileID: 11400000, guid: 3597e30006c961f4f93d5e270a2b5090, type: 2}
 --- !u!54 &8344759752000806862
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,6 +130,10 @@ PrefabInstance:
       value: Maul
       objectReference: {fileID: 0}
     - target: {fileID: 4523887289566154, guid: e2ee674be93e4be46a07b380f4c31cc1, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523887289566154, guid: e2ee674be93e4be46a07b380f4c31cc1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -142,6 +146,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4523887289566154, guid: e2ee674be93e4be46a07b380f4c31cc1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523887289566154, guid: e2ee674be93e4be46a07b380f4c31cc1, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -151,14 +159,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4523887289566154, guid: e2ee674be93e4be46a07b380f4c31cc1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523887289566154, guid: e2ee674be93e4be46a07b380f4c31cc1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523887289566154, guid: e2ee674be93e4be46a07b380f4c31cc1, type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4523887289566154, guid: e2ee674be93e4be46a07b380f4c31cc1, type: 3}

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class BetterFighter : MonoBehaviour
 {
+    #region Encapsulation
     //refactored fighter
     public WeaponObject weaponObject;
     [HideInInspector]Animator animator;
     [HideInInspector]PlayerStats stats;
     [SerializeField] float attackSpeed = 1.5f;
     [HideInInspector] AnimationPlayer animationPlayer;
+    [SerializeField] KeyCode consumableUseKey = KeyCode.Q;
     public Transform equipmentParent;
     private int index = -1;
     [HideInInspector]private bool twoHand = false;
@@ -24,6 +26,7 @@ public class BetterFighter : MonoBehaviour
     const string heavyAttack2 = "HeavyAttack2";
     bool canDoCombo;
     bool comboFlag;
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +43,7 @@ public class BetterFighter : MonoBehaviour
     void Update()
     {
         canDoCombo = animationPlayer.GetAnimator().GetBool("CanDoCombo");
+        ConsumeOrThrow(stats);
         if (Input.GetKeyDown(KeyCode.T))
         {
             twoHand = !twoHand;
@@ -271,5 +275,13 @@ public class BetterFighter : MonoBehaviour
         weaponObject = weaponsInBackPack[indexToEquip];
         animator.runtimeAnimatorController = weaponObject.weaponOvveride;
         weaponObject.EquipOn(false, equipmentParent);
+    }
+    void ConsumeOrThrow(PlayerStats stats)
+    {
+        //to do 
+        if (Input.GetKeyDown(consumableUseKey))
+        {
+            Debug.Log("I use consumable/throw"); 
+        }
     }
 }

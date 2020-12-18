@@ -4,18 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 public class BetterInventory : MonoBehaviour
 {
+    #region Encapsulation
     [SerializeField] KeyCode inventoryKeycode = KeyCode.I;
     [SerializeField] CanvasGroup inventoryPanelCanvasGroup;
     [SerializeField] CanvasGroup weaponsCanvasGroup;
     [SerializeField] CanvasGroup clothCanvasGroup;
+    [SerializeField] CanvasGroup consumableCanvasGroup;
     [SerializeField] Button weaponButtonInstance;
-    [SerializeField] Button clothButton;
+    [SerializeField] Button clothButtonInstance;
+    [SerializeField] Button consumableThrowableButton;
     bool openedInventory = false;
     bool openedWeaponInventory = false;
     bool openedClothInventory = false;
+    bool openedConsumableInventory = false;
     [HideInInspector] BetterFighter betterFighter;
     private ClotheObject clothOnHead;
+    private ConsumableObject currentEquippedConsumable;
     public List<ClotheObject> clothes = new List<ClotheObject>();
+    public List<ConsumableObject> consumables = new List<ConsumableObject>();
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
@@ -28,19 +35,27 @@ public class BetterInventory : MonoBehaviour
         {
             openedClothInventory = false;
             openedWeaponInventory = false;
+            openedConsumableInventory = false;
             openedInventory = !openedInventory;
         }
+        #region CanvasToggling
         ActivateCanvasGroup(inventoryPanelCanvasGroup, openedInventory);
         ActivateCanvasGroup(weaponsCanvasGroup, openedWeaponInventory);
         ActivateCanvasGroup(clothCanvasGroup, openedClothInventory);
+        ActivateCanvasGroup(consumableCanvasGroup, openedConsumableInventory);
+        #endregion
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ActivateCanvasGroup(weaponsCanvasGroup, false);
             ActivateCanvasGroup(clothCanvasGroup, false);
+            ActivateCanvasGroup(consumableCanvasGroup, false);
             openedWeaponInventory = false;
+            openedConsumableInventory = false;
+            ActivateCanvasGroup(inventoryPanelCanvasGroup, false);
             DestroyInstances(weaponsCanvasGroup.transform);
             DestroyInstances(clothCanvasGroup.transform);
             ActivateCanvasGroup(inventoryPanelCanvasGroup, false);
+            ActivateCanvasGroup(consumableCanvasGroup,false);
         }
     }
     public void OpenWeaponsInventory()
@@ -48,6 +63,7 @@ public class BetterInventory : MonoBehaviour
         openedInventory = false;
         openedWeaponInventory = true;
         openedClothInventory = false;
+        openedConsumableInventory = false;
         ActivateCanvasGroup(weaponsCanvasGroup, true);
         int index = 0;
         foreach (WeaponObject weapon in betterFighter.weaponsInBackPack)
@@ -58,16 +74,33 @@ public class BetterInventory : MonoBehaviour
             index++;
         }
     }
+    public void OpenConsumableInventoryToPlayer()
+    {
+        openedInventory = false;
+        openedWeaponInventory = false;
+        openedClothInventory = false;
+        openedConsumableInventory = true;
+        ActivateCanvasGroup(consumableCanvasGroup, true);
+        int index = 0;
+        foreach (ConsumableObject consumable in consumables)     
+        {
+            Button instance = Instantiate(weaponButtonInstance, weaponsCanvasGroup.transform);
+            instance.image.sprite = consumable.icon;
+            instance.GetComponent<WeaponIndexHolder>().consumableToClickIndex = index;
+            index++;
+        }
+    }
     public void OpenClothInventor()
     {
         openedInventory = false;
         openedWeaponInventory = false;
+        openedConsumableInventory = false;
         openedClothInventory = true;
         ActivateCanvasGroup(clothCanvasGroup, true);
         int index = 0;
         foreach (ClotheObject cloth in clothes)
         {
-            Button instance = Instantiate(clothButton, clothCanvasGroup.transform);
+            Button instance = Instantiate(clothButtonInstance, clothCanvasGroup.transform);
             instance.image.sprite = cloth.icon;
             instance.GetComponent<WeaponIndexHolder>().clothToClickIndex = index;
             index++;
@@ -112,6 +145,10 @@ public class BetterInventory : MonoBehaviour
             }
         }
     }
+    public void EquipConsumable(int indexToEquip)
+    {
+        currentEquippedConsumable = consumables[indexToEquip];
+    }
     void ActivateCanvasGroup(CanvasGroup canvasGroup,bool isOn)
     {
         if(isOn == true)
@@ -128,3 +165,4 @@ public class BetterInventory : MonoBehaviour
         }
     }
 }
+
