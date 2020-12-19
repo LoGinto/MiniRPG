@@ -7,17 +7,19 @@ public class BetterFighter : MonoBehaviour
     #region Encapsulation
     //refactored fighter
     public WeaponObject weaponObject;
-    [HideInInspector]Animator animator;
-    [HideInInspector]PlayerStats stats;
+    [HideInInspector] Animator animator;
+    [HideInInspector] PlayerStats stats;
     [SerializeField] float attackSpeed = 1.5f;
     [HideInInspector] AnimationPlayer animationPlayer;
     [SerializeField] KeyCode consumableUseKey = KeyCode.Q;
     public Transform equipmentParent;
+    public Transform consumableParent;
     private int index = -1;
-    [HideInInspector]private bool twoHand = false;
+    [HideInInspector] private bool twoHand = false;
     [SerializeField] KeyCode forwardKey = KeyCode.O;
     [SerializeField] KeyCode backKey = KeyCode.L;
     [SerializeField] KeyCode pickupKey = KeyCode.E;
+    [HideInInspector] BetterInventory inventory;
     public List<WeaponObject> weaponsInBackPack = new List<WeaponObject>();
     string lastAttack = "";
     const string lightAttack1 = "LightAttack1";
@@ -32,8 +34,9 @@ public class BetterFighter : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         stats = GetComponent<PlayerStats>();
+        inventory = GetComponent<BetterInventory>();
         //handle first weapon as well
-        if(index == -1)
+        if (index == -1)
         {
             CycleWeapon(true);
         }
@@ -48,7 +51,7 @@ public class BetterFighter : MonoBehaviour
         {
             twoHand = !twoHand;
         }
-            SwitchToTwoHand(twoHand);
+        SwitchToTwoHand(twoHand);
         if (Input.GetKeyDown(forwardKey))
         {
             try
@@ -70,12 +73,12 @@ public class BetterFighter : MonoBehaviour
             catch
             {
                 index = 0;
-                weaponObject.EquipOn(false,equipmentParent);
+                weaponObject.EquipOn(false, equipmentParent);
             }
         }
         if (weaponObject != null)
         {
-            if (!gameObject.GetComponent<BetterInventory>().WeaponsInventoryIsOpen() && gameObject.GetComponent<BetterInventory>().InventoryIsOpen() == false&&gameObject.GetComponent<BetterInventory>().ClothInventoryIsOpen() == false)
+            if (!gameObject.GetComponent<BetterInventory>().WeaponsInventoryIsOpen() && gameObject.GetComponent<BetterInventory>().InventoryIsOpen() == false && gameObject.GetComponent<BetterInventory>().ClothInventoryIsOpen() == false)
             {
                 AttackBehavior();
             }
@@ -86,7 +89,7 @@ public class BetterFighter : MonoBehaviour
         SwitchComboCheck();
         if (Input.GetMouseButtonDown(0))
         {
-           
+
             if (stats.currentStamina >= weaponObject.baseStaminaDrain * weaponObject.lightAttackMultiplier)
             {
 
@@ -126,7 +129,7 @@ public class BetterFighter : MonoBehaviour
                     HandleHeavyAttack();
                 }
             }
-        }        
+        }
     }
     public void TakeHeavyStaminaAnimationEvent()
     {
@@ -138,7 +141,7 @@ public class BetterFighter : MonoBehaviour
     }
     void SwitchComboCheck()
     {
-        if (this.animator.GetCurrentAnimatorStateInfo(1).IsName(lightAttack1))
+        if (this.animator.GetCurrentAnimatorStateInfo(2).IsName(lightAttack1))
         {
             if (canDoCombo)
             {
@@ -149,7 +152,7 @@ public class BetterFighter : MonoBehaviour
                 }
             }
         }
-        else if (this.animator.GetCurrentAnimatorStateInfo(1).IsName(heavyAttack1))
+        else if (this.animator.GetCurrentAnimatorStateInfo(2).IsName(heavyAttack1))
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -157,7 +160,7 @@ public class BetterFighter : MonoBehaviour
                 lastAttack = lightAttack1;
             }
         }
-        bool x = this.animator.GetCurrentAnimatorStateInfo(1).IsName(lightAttack1) || this.animator.GetCurrentAnimatorStateInfo(1).IsName(lightAttack2) || this.animator.GetCurrentAnimatorStateInfo(1).IsName(heavyAttack1) || this.animator.GetCurrentAnimatorStateInfo(1).IsName(heavyAttack2);
+        bool x = this.animator.GetCurrentAnimatorStateInfo(2).IsName(lightAttack1) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(lightAttack2) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(heavyAttack1) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(heavyAttack2);
         if (x)
         {
             animator.speed = attackSpeed;
@@ -173,17 +176,17 @@ public class BetterFighter : MonoBehaviour
         {
             animationPlayer.GetAnimator().SetBool("CanDoCombo", false);
             if (lastAttack == lightAttack1)
-            {                              
+            {
                 //else
                 //{
-                    animationPlayer.PlayerTargetAnim(lightAttack2, true);
-               // }
+                animationPlayer.PlayerTargetAnim(lightAttack2, true);
+                // }
             }
             else if (lastAttack == heavyAttack1)
-            {                                
+            {
                 //else
                 //{
-                    animationPlayer.PlayerTargetAnim(heavyAttack2, true);
+                animationPlayer.PlayerTargetAnim(heavyAttack2, true);
                 //}
             }
         }
@@ -204,13 +207,13 @@ public class BetterFighter : MonoBehaviour
         if (forward)
         {
             index++;
-            if (weaponObject != null)        
+            if (weaponObject != null)
             {
                 Unequip(weaponObject);
             }
             weaponObject = weaponsInBackPack[index];
             animator.runtimeAnimatorController = weaponObject.weaponOvveride;
-            weaponObject.EquipOn(false,equipmentParent);
+            weaponObject.EquipOn(false, equipmentParent);
         }
         else // also I have to destroy previous instance, to do
         {
@@ -231,7 +234,7 @@ public class BetterFighter : MonoBehaviour
             animator.runtimeAnimatorController = weaponObject.twoHandWeaponOvveride;
             if (weaponObject.GetInstance() != null) {
                 weaponObject.HandTransformRegulator(weaponObject.GetInstance(), twoHand);
-                }
+            }
         }
         else
         {
@@ -249,7 +252,7 @@ public class BetterFighter : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //maybe some ui here as well
-        if(other.tag == "Weapon pickup")
+        if (other.tag == "Weapon pickup")
         {
             if (Input.GetKeyDown(pickupKey))
             {
@@ -281,7 +284,50 @@ public class BetterFighter : MonoBehaviour
         //to do 
         if (Input.GetKeyDown(consumableUseKey))
         {
-            Debug.Log("I use consumable/throw"); 
+            if (animator.GetBool("IsInteracting"))
+            {
+                return;
+            }
+            if (inventory.GetCurrentConsumable() != null)
+            {
+                if (!inventory.GetCurrentConsumable().isThrowable && !inventory.GetCurrentConsumable().isAWeaponBoost)
+                {
+                    animationPlayer.PlayerTargetAnim(inventory.GetCurrentConsumable().consumingAnimationName, true);
+                }
+            }
         }
     }
+    #region ConsumeAnimEvents
+    public void DrinkConsumableSpawnBottleEvent()
+    {
+        if (inventory.GetCurrentConsumable() != null)
+        {
+            inventory.GetCurrentConsumable().SpawnConsumableAt(consumableParent);
+        }
+    }
+    public void SpawnGlowConsumableEvent()
+    {
+        if (inventory.GetCurrentConsumable() != null)
+        {
+            inventory.GetCurrentConsumable().PlayConsumptionEffect(this.transform);
+        }
+    }
+    public void IncreaseStatByConsumableAnimEvent()
+    {
+        if (inventory.GetCurrentConsumable() != null)
+        {
+            if(inventory.GetCurrentConsumable().increaseType == ConsumableObject.IncreaseType.health)
+            {
+                stats.AddHealth(inventory.GetCurrentConsumable().increase);
+            }
+            if (inventory.GetCurrentConsumable().increaseType == ConsumableObject.IncreaseType.stamina)
+            {
+                stats.AddStamina(inventory.GetCurrentConsumable().increase);
+            }
+
+            Destroy(inventory.GetCurrentConsumable().GetConsumableInstance());
+            Destroy(inventory.GetCurrentConsumable().GetParticleInstance());
+        }
+    }
+    #endregion
 }

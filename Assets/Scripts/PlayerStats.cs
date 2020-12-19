@@ -27,7 +27,7 @@ public class PlayerStats : MonoBehaviour
     {
         maxStamina = staminaLevel * 10;
         return maxStamina;
-    } 
+    }
     float SetMaxHealth()
     {
         maxHealth = level * 10;
@@ -73,7 +73,15 @@ public class PlayerStats : MonoBehaviour
                 //yield return new WaitForEndOfFrame();               
             }
             yield return null;
-        }       
+        }
+    }
+    public void AddHealth(float healthToAdd)
+    {
+        health += healthToAdd;
+    }
+    public void AddStamina(float staminaToAdd)
+    {
+        currentStamina += staminaToAdd;
     }
 }
 

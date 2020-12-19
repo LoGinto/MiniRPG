@@ -13,6 +13,7 @@ public class BetterInventory : MonoBehaviour
     [SerializeField] Button weaponButtonInstance;
     [SerializeField] Button clothButtonInstance;
     [SerializeField] Button consumableThrowableButton;
+    [SerializeField] Image currentConsumableImage;
     bool openedInventory = false;
     bool openedWeaponInventory = false;
     bool openedClothInventory = false;
@@ -27,10 +28,15 @@ public class BetterInventory : MonoBehaviour
     void Start()
     {
         betterFighter = FindObjectOfType<BetterFighter>();
+        if (consumables != null)
+        {
+            currentEquippedConsumable = consumables[0];
+        }
     }
     // Update is called once per frame
     void Update()
     {
+        #region CanvasToggling
         if (Input.GetKeyDown(inventoryKeycode))
         {
             openedClothInventory = false;
@@ -38,12 +44,12 @@ public class BetterInventory : MonoBehaviour
             openedConsumableInventory = false;
             openedInventory = !openedInventory;
         }
-        #region CanvasToggling
+        
         ActivateCanvasGroup(inventoryPanelCanvasGroup, openedInventory);
         ActivateCanvasGroup(weaponsCanvasGroup, openedWeaponInventory);
         ActivateCanvasGroup(clothCanvasGroup, openedClothInventory);
         ActivateCanvasGroup(consumableCanvasGroup, openedConsumableInventory);
-        #endregion
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ActivateCanvasGroup(weaponsCanvasGroup, false);
@@ -56,6 +62,11 @@ public class BetterInventory : MonoBehaviour
             DestroyInstances(clothCanvasGroup.transform);
             ActivateCanvasGroup(inventoryPanelCanvasGroup, false);
             ActivateCanvasGroup(consumableCanvasGroup,false);
+        }
+        #endregion
+        if (currentEquippedConsumable != null)
+        {
+            currentConsumableImage.GetComponent<Image>().sprite = currentEquippedConsumable.icon;
         }
     }
     public void OpenWeaponsInventory()
@@ -148,6 +159,10 @@ public class BetterInventory : MonoBehaviour
     public void EquipConsumable(int indexToEquip)
     {
         currentEquippedConsumable = consumables[indexToEquip];
+    }
+    public ConsumableObject GetCurrentConsumable()
+    {
+        return currentEquippedConsumable;
     }
     void ActivateCanvasGroup(CanvasGroup canvasGroup,bool isOn)
     {
