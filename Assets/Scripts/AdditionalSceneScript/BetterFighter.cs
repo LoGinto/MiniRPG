@@ -14,6 +14,7 @@ public class BetterFighter : MonoBehaviour
     [SerializeField] KeyCode consumableUseKey = KeyCode.Q;
     public Transform equipmentParent;
     public Transform consumableParent;
+    public Transform emptryThrowTarget;
     private int index = -1;
     [HideInInspector] private bool twoHand = false;
     [SerializeField] KeyCode forwardKey = KeyCode.O;
@@ -78,7 +79,7 @@ public class BetterFighter : MonoBehaviour
         }
         if (weaponObject != null)
         {
-            if (!gameObject.GetComponent<BetterInventory>().WeaponsInventoryIsOpen() && gameObject.GetComponent<BetterInventory>().InventoryIsOpen() == false && gameObject.GetComponent<BetterInventory>().ClothInventoryIsOpen() == false)
+            if (!gameObject.GetComponent<BetterInventory>().WeaponsInventoryIsOpen() && gameObject.GetComponent<BetterInventory>().InventoryIsOpen() == false && gameObject.GetComponent<BetterInventory>().ClothInventoryIsOpen() == false&&!gameObject.GetComponent<BetterInventory>().ConsumableInventoryIsOpen())
             {
                 AttackBehavior();
             }
@@ -294,6 +295,32 @@ public class BetterFighter : MonoBehaviour
                 {
                     animationPlayer.PlayerTargetAnim(inventory.GetCurrentConsumable().consumingAnimationName, true);
                 }
+                else if(inventory.GetCurrentConsumable().isThrowable && !inventory.GetCurrentConsumable().isAWeaponBoost)
+                {
+                    //throw anim and calculations
+                    try
+                    {
+                        animationPlayer.PlayerTargetAnim(inventory.GetCurrentConsumable().consumingAnimationName, true);
+                    }
+                    catch
+                    {
+                        animationPlayer.PlayerTargetAnim("Throw", true);
+                    }
+                    if(inventory.GetCurrentConsumable().GetConsumableInstance() != null)
+                    {
+                        //fly towards
+                        if (gameObject.GetComponent<LockOn>().GetLockState() == true)
+                        {
+                            if (gameObject.GetComponent<LockOn>().lookAtTransform != null)
+                            {
+                                Transform assignedTarget = gameObject.GetComponent<LockOn>().lookAtTransform;
+                                inventory.GetCurrentConsumable().GetConsumableInstance().GetComponent<FlyingProjectileScript>().target = assignedTarget;
+                                
+                                //inventory.GetCurrentConsumable().GetConsumableInstance().GetComponent<FlyingProjectileScript>().LaunchProjectile();
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -328,6 +355,18 @@ public class BetterFighter : MonoBehaviour
             Destroy(inventory.GetCurrentConsumable().GetConsumableInstance());
             Destroy(inventory.GetCurrentConsumable().GetParticleInstance());
         }
+    }
+    public void AnimLaunchProjectileFromFighter()
+    {
+        if (inventory.GetCurrentConsumable().GetConsumableInstance() == null)
+        {
+            inventory.GetCurrentConsumable().SpawnConsumableAt(consumableParent);
+            //inventory.GetCurrentConsumable().GetConsumableInstance().transform.parent = null;
+        }
+        //else
+        //{
+        //    inventory.GetCurrentConsumable().GetConsumableInstance().GetComponent<FlyingProjectileScript>().LaunchProjectile();
+        //}
     }
     #endregion
 }

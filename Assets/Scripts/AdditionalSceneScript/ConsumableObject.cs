@@ -12,9 +12,9 @@ public class ConsumableObject : ScriptableObject
     public float increase;
     public GameObject model;
     public GameObject particle;
-    public enum IncreaseType { stamina,health}
+    public enum IncreaseType { stamina,health,none,weapon}
     public IncreaseType increaseType = IncreaseType.health; 
-    public string consumingAnimationName;
+    public string consumingAnimationName;   
     [Header("Consumable spawn point")]
     public Vector3 consumableSpawnPos;
     public Vector3 consumableSpawnRot;

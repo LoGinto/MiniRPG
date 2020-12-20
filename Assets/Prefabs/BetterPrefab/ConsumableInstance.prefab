@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2454687876892756109}
   - component: {fileID: 1573917518457173963}
   m_Layer: 5
-  m_Name: ClothButton
+  m_Name: ConsumableInstance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -122,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1573917518457173963}
         m_TargetAssemblyTypeName: WeaponIndexHolder, Assembly-CSharp
-        m_MethodName: EquipCloth
+        m_MethodName: EquipConsumable
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -146,3 +147,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponToClickIndex: 0
   clothToClickIndex: 0
+  consumableToClickIndex: 0

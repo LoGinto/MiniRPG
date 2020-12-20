@@ -70,6 +70,7 @@ public class Movement : MonoBehaviour
     void LockedMove()
     {
         //blend tree for strafing in locked movement
+        animator.SetFloat("Move", 0);
         animator.SetFloat("xInput", Input.GetAxis("Horizontal"));
         animator.SetFloat("yInput", Input.GetAxis("Vertical"));
         DodgeInLock();
@@ -143,6 +144,10 @@ public class Movement : MonoBehaviour
     public float GetGravity()
     {
         return gravity;
+    }
+    public void GetToZeroAnimationEvent()
+    {        
+        animator.SetFloat("Move", 0);
     }
 }
 

@@ -95,7 +95,7 @@ public class BetterInventory : MonoBehaviour
         int index = 0;
         foreach (ConsumableObject consumable in consumables)     
         {
-            Button instance = Instantiate(weaponButtonInstance, weaponsCanvasGroup.transform);
+            Button instance = Instantiate(consumableThrowableButton, consumableCanvasGroup.transform);
             instance.image.sprite = consumable.icon;
             instance.GetComponent<WeaponIndexHolder>().consumableToClickIndex = index;
             index++;
@@ -135,6 +135,10 @@ public class BetterInventory : MonoBehaviour
     public bool ClothInventoryIsOpen()
     {
         return openedClothInventory;
+    }
+    public bool ConsumableInventoryIsOpen()
+    {
+        return openedConsumableInventory;
     }
     public void EquipClothFromInventory(int indexToEquip)
     {
