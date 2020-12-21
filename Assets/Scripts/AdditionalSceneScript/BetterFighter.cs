@@ -316,7 +316,7 @@ public class BetterFighter : MonoBehaviour
                                 Transform assignedTarget = gameObject.GetComponent<LockOn>().lookAtTransform;
                                 inventory.GetCurrentConsumable().GetConsumableInstance().GetComponent<FlyingProjectileScript>().target = assignedTarget;
                                 
-                                //inventory.GetCurrentConsumable().GetConsumableInstance().GetComponent<FlyingProjectileScript>().LaunchProjectile();
+                                inventory.GetCurrentConsumable().GetConsumableInstance().GetComponent<FlyingProjectileScript>().LaunchProjectile();
                             }
                         }
                     }
@@ -356,17 +356,20 @@ public class BetterFighter : MonoBehaviour
             Destroy(inventory.GetCurrentConsumable().GetParticleInstance());
         }
     }
-    public void AnimLaunchProjectileFromFighter()
+    public void AnimLaunchProjectileFromFighter(int phase)
     {
-        if (inventory.GetCurrentConsumable().GetConsumableInstance() == null)
+        if (phase == 1)
         {
-            inventory.GetCurrentConsumable().SpawnConsumableAt(consumableParent);
-            //inventory.GetCurrentConsumable().GetConsumableInstance().transform.parent = null;
+            if (inventory.GetCurrentConsumable().GetConsumableInstance() == null)
+            {
+                inventory.GetCurrentConsumable().SpawnConsumableAt(consumableParent);
+            }
         }
-        //else
-        //{
-        //    inventory.GetCurrentConsumable().GetConsumableInstance().GetComponent<FlyingProjectileScript>().LaunchProjectile();
-        //}
+        else if(phase == 2)
+        {
+            inventory.GetCurrentConsumable().GetConsumableInstance().transform.parent = null;
+        }
+
     }
     #endregion
 }

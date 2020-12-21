@@ -22,7 +22,7 @@ public class FlyingProjectileScript : MonoBehaviour
         {
             target = FindObjectOfType<BetterFighter>().emptryThrowTarget;
         }
-        this.transform.parent = null;
+        //this.transform.parent = null;
         StartCoroutine(Launch());
     }
 
