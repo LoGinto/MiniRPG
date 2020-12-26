@@ -12,6 +12,7 @@ public class EnemyHealth : HealthManager
     private float maxhealth;
     [HideInInspector]Animator animator;
     [HideInInspector]BetterFighter betterFighter;
+    [HideInInspector] Enemy enemyScript;
     [SerializeField] UnityEvent deathEvent;
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class EnemyHealth : HealthManager
         maxhealth = (float)enemyStat.level * 10;
         health = maxhealth;
         animator = GetComponent<Animator>();
+        enemyScript = GetComponent<Enemy>();
     }
     // Update is called once per frame
     void Update()
@@ -31,6 +33,7 @@ public class EnemyHealth : HealthManager
     {
         showHealthBar = true;
         health -= damage;
+
         try
         {           
             if (betterFighter.GetLastAttack() == "LightAttack1")
@@ -61,6 +64,12 @@ public class EnemyHealth : HealthManager
             FindObjectOfType<PlayerStats>().soulsCount += enemyStat.soulDrop;
             deathEvent?.Invoke();
         }
+    }
+    public override void TakeDamageFromThrowable(float hitdamage,string hurtAnim)
+    {
+        showHealthBar = true;
+        health -= hitdamage;
+        enemyScript.EnemyTargetAnim(hurtAnim, true);
     }
     public EnemyStat GetEnemyStat()
     {

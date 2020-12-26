@@ -109,5 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  hitAnimPlay: StoneHit
   firingAngle: 45
   gravity: 9.8
+  throwable: {fileID: 11400000, guid: 51e02b5bc5a4c5e4b868db390257d915, type: 2}

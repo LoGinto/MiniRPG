@@ -258,6 +258,7 @@ public class Enemy : MonoBehaviour,IAI
     }
     public virtual void EnemyTargetAnim(string targetAnim, bool isInteracting)
     {
+        if (animator.GetBool("IsInteracting")){ return; }
         animator.applyRootMotion = isInteracting;
         animator.SetBool("IsInteracting", isInteracting);
         animator.CrossFade(targetAnim, 0.2f);

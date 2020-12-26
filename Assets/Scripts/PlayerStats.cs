@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : MonoBehaviour,ISaveable
 {
     public float maxStamina;
     public int level = 10;
@@ -82,6 +83,31 @@ public class PlayerStats : MonoBehaviour
     public void AddStamina(float staminaToAdd)
     {
         currentStamina += staminaToAdd;
+    }
+
+    public object CaptureState()
+    {
+        return new SaveData
+        {
+            soulsCount = soulsCount,
+            staminaLevel = staminaLevel,
+            level = level
+        };
+    }
+
+    public void RestoreState(object state)
+    {
+        var saveData = (SaveData)state;
+        level = saveData.level;
+        staminaLevel = saveData.staminaLevel;
+        soulsCount = saveData.soulsCount; 
+    }
+    [Serializable]
+    private struct SaveData
+    {
+        public int soulsCount;
+        public int staminaLevel;
+        public int level;
     }
 }
 

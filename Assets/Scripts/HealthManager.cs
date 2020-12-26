@@ -8,4 +8,9 @@ public class HealthManager : MonoBehaviour
     {
         FindObjectOfType<PlayerStats>().health -= damage;
     }
+    public virtual void TakeDamageFromThrowable(float damage,string hurtAnim)
+    {
+        FindObjectOfType<PlayerStats>().health -= damage;
+        FindObjectOfType<AnimationPlayer>().PlayerTargetAnim(hurtAnim,true);
+    }
 }

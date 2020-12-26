@@ -5,11 +5,12 @@ using UnityEngine;
 public class FlyingProjectileScript : MonoBehaviour
 {
     public Transform target;
+    public string hitAnimPlay = "StoneHit";
     public float firingAngle = 45f;
     public float gravity = 9.8f;
     Transform projectile;
     Transform myTransform;
-
+    [SerializeField] ConsumableObject throwable;
     private void Awake()
     {
         projectile = this.gameObject.transform;
@@ -68,6 +69,11 @@ public class FlyingProjectileScript : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        InteractWithCollidedObject(collision);        
+    }
+
+    public virtual void InteractWithCollidedObject(Collision collision)
+    {
         try
         {
             if (collision.collider.name != "Player" || FindObjectOfType<BetterFighter>().weaponObject.GetInstance())
@@ -77,9 +83,17 @@ public class FlyingProjectileScript : MonoBehaviour
         }
         catch
         {
-            if(collision.collider.name != "Player")
+            if (collision.collider.name != "Player")
             {
                 Destroy(gameObject);
+            }
+        }
+        if (collision.collider.GetComponent<EnemyHealth>())
+        {
+            collision.collider.GetComponent<EnemyHealth>().TakeDamageFromThrowable(throwable.increase,hitAnimPlay);
+            if(throwable.particle != null)
+            {
+                throwable.PlayConsumptionEffect(collision.collider.transform);
             }
         }
     }
