@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour,IAI
     {
        calmBehavior,chasing, lostSight,attacking
     }
-    GameObject player;
+    protected GameObject player;
     bool sight;
     bool comboChance;
     [SerializeField] float spottingDist;
@@ -35,11 +35,11 @@ public class Enemy : MonoBehaviour,IAI
     //private GameObject inst;
     public ActionState actionState = ActionState.calmBehavior;
     // Start is called before the first frame update
-   void Awake()
+   protected virtual void Awake()
     {
         AssignWeapon();
     }
-    void Start()
+    protected virtual void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour,IAI
         
     }
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         comboChance = Random.value < enemyStat.comboChance;
         TickBehavior();

@@ -9,6 +9,7 @@ ScriptsOnlyBuild:
     - ClotheObject
     - ConsumableObject
     - DamageColliders
+    - DashingEnemy
     - Enemy
     - EnemyDamageCollider
     - EnemyHealth
@@ -115,79 +116,81 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1584}
     - Class: 114
-      Script: {instanceID: 1722}
+      Script: {instanceID: 1724}
     - Class: 114
-      Script: {instanceID: 1730}
+      Script: {instanceID: 1732}
     - Class: 114
-      Script: {instanceID: 1742}
+      Script: {instanceID: 1744}
     - Class: 114
-      Script: {instanceID: 1756}
+      Script: {instanceID: 1758}
     - Class: 114
-      Script: {instanceID: 1924}
+      Script: {instanceID: 1926}
     - Class: 114
-      Script: {instanceID: 2090}
+      Script: {instanceID: 2092}
     - Class: 114
-      Script: {instanceID: 2188}
+      Script: {instanceID: 2190}
     - Class: 114
-      Script: {instanceID: 2286}
+      Script: {instanceID: 2288}
     - Class: 114
-      Script: {instanceID: 2318}
+      Script: {instanceID: 2314}
     - Class: 114
-      Script: {instanceID: 2336}
+      Script: {instanceID: 2322}
     - Class: 114
-      Script: {instanceID: 2392}
+      Script: {instanceID: 2340}
     - Class: 114
-      Script: {instanceID: 2438}
+      Script: {instanceID: 2396}
     - Class: 114
-      Script: {instanceID: 2444}
+      Script: {instanceID: 2442}
     - Class: 114
-      Script: {instanceID: 2450}
+      Script: {instanceID: 2448}
     - Class: 114
-      Script: {instanceID: 2482}
+      Script: {instanceID: 2454}
     - Class: 114
-      Script: {instanceID: 2516}
+      Script: {instanceID: 2486}
     - Class: 114
-      Script: {instanceID: 2522}
+      Script: {instanceID: 2520}
     - Class: 114
-      Script: {instanceID: 2566}
+      Script: {instanceID: 2526}
     - Class: 114
-      Script: {instanceID: 2572}
+      Script: {instanceID: 2570}
     - Class: 114
-      Script: {instanceID: 2590}
+      Script: {instanceID: 2576}
     - Class: 114
-      Script: {instanceID: 2698}
+      Script: {instanceID: 2594}
     - Class: 114
-      Script: {instanceID: 2762}
+      Script: {instanceID: 2702}
     - Class: 114
-      Script: {instanceID: 3048}
+      Script: {instanceID: 2766}
     - Class: 114
-      Script: {instanceID: 3058}
+      Script: {instanceID: 2890}
     - Class: 114
-      Script: {instanceID: 3226}
+      Script: {instanceID: 3054}
     - Class: 114
-      Script: {instanceID: 3248}
+      Script: {instanceID: 3064}
     - Class: 114
-      Script: {instanceID: 3272}
+      Script: {instanceID: 3232}
     - Class: 114
-      Script: {instanceID: 3354}
+      Script: {instanceID: 3254}
     - Class: 114
-      Script: {instanceID: 3418}
+      Script: {instanceID: 3278}
     - Class: 114
-      Script: {instanceID: 3638}
+      Script: {instanceID: 3360}
     - Class: 114
-      Script: {instanceID: 3784}
+      Script: {instanceID: 3424}
     - Class: 114
-      Script: {instanceID: 3984}
+      Script: {instanceID: 3644}
     - Class: 114
-      Script: {instanceID: 4234}
+      Script: {instanceID: 3790}
     - Class: 114
-      Script: {instanceID: 4262}
+      Script: {instanceID: 3990}
     - Class: 114
-      Script: {instanceID: 4376}
+      Script: {instanceID: 4240}
     - Class: 114
-      Script: {instanceID: 24080}
+      Script: {instanceID: 4268}
     - Class: 114
-      Script: {instanceID: 24090}
+      Script: {instanceID: 4382}
+    - Class: 114
+      Script: {instanceID: 26178}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 124
@@ -479,6 +482,12 @@ ScriptsOnlyBuild:
     className: CinemachineBrain
   - hash:
       serializedVersion: 2
+      Hash: d93f4f4c1fd32dcdaf045d077e643698
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SaveableEntity
+  - hash:
+      serializedVersion: 2
       Hash: a1aa98c78061c6f03a8c124cda576e67
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -729,6 +738,12 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineImpulseListener
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SavingLoading
   - hash:
       serializedVersion: 2
       Hash: 4fd8bf02e3089425d3502e26c44ba31a
@@ -1175,17 +1190,11 @@ ScriptsOnlyBuild:
     className: CharacterIK
   - hash:
       serializedVersion: 2
-      Hash: d93f4f4c1fd32dcdaf045d077e643698
+      Hash: e3a28646067652970566d7ecc4c3c8fa
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: SaveableEntity
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SavingLoading
+    className: DashingEnemy
   platform: 5
   scenePathNames:
   - Assets/Scenes/FightingDemo.unity
-  playerPath: D:/project/PortfolioProject_Demo/Builds/PortfolioProject_Demo.exe
+  playerPath: D:/project/PortfolioProject_Demo/Build/PortfolioProject_Demo.exe

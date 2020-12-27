@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Knight1
   m_EditorClassIdentifier: 
   level: 10
+  soulDrop: 400
   attackCoolDown: 2
   attackAnim1: HorizontalAttack
   attackAnim2: 
