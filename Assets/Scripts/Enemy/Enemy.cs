@@ -18,16 +18,16 @@ public class Enemy : MonoBehaviour,IAI
     bool sight;
     bool comboChance;
     [SerializeField] float spottingDist;
-    [SerializeField] float attackingDist;
+    [SerializeField] protected float attackingDist;
     [SerializeField] float loseSightDist;
     [SerializeField] float runSpeed = 12;
     [SerializeField] float rotationSpeed = 35f;//angular speed in degrees
     [SerializeField] EnemyStat enemyStat;
     public WeaponObject weaponObject;
     public Transform parentForMelee;
-    [HideInInspector]NavMeshAgent navMeshAgent;
+    [HideInInspector]protected NavMeshAgent navMeshAgent;
     [HideInInspector]Animator animator;    
-    [HideInInspector]Vector3 lookAtPlayer;
+    [HideInInspector]protected Vector3 lookAtPlayer;
     string lastAttack;
     private float actualCoolDown = 0;
     bool isHavingattackAnim;
@@ -148,10 +148,11 @@ public class Enemy : MonoBehaviour,IAI
                 {
                     //do combo 
                     //last attack = combo  so we go back to attack anim1
-                    
+                        
                         int randomValueN2 = Random.Range(1, 3);
                         if(randomValueN2 == 1)
                         {
+                            transform.LookAt(lookAtPlayer);
                             if (enemyStat.combo1 != "")
                             {
                                 EnemyTargetAnim(enemyStat.combo1, true);
@@ -160,6 +161,7 @@ public class Enemy : MonoBehaviour,IAI
                         }
                         else
                         {
+                            transform.LookAt(lookAtPlayer);
                             if (enemyStat.combo2 != "")
                             {
                                 EnemyTargetAnim(enemyStat.combo2, true);

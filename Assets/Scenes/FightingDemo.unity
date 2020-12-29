@@ -3408,7 +3408,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770123456}
-  m_LocalRotation: {x: -0.08863323, y: 0.8539648, z: -0.15485333, w: -0.48878294}
+  m_LocalRotation: {x: -0.08863323, y: 0.8539648, z: -0.15485334, w: -0.48878294}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5170,7 +5170,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461236467}
-  m_LocalRotation: {x: -0.07081973, y: 0.85902625, z: -0.12373091, w: -0.4916799}
+  m_LocalRotation: {x: -0.070819736, y: 0.85902625, z: -0.12373091, w: -0.49167994}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -8222,7 +8222,7 @@ Animator:
   m_GameObject: {fileID: 5120966972092579467}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 25df33680fe8c53468e8b95d8fad29d5, type: 3}
-  m_Controller: {fileID: 9100000, guid: 9fec5b65165bb6f48af4a6e129d6a2be, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8a687e9f0950eaa43a8a222bac9f7811, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -9685,8 +9685,9 @@ GameObject:
   - component: {fileID: 5120966972092579470}
   - component: {fileID: 5120966972092579473}
   - component: {fileID: 5120966972092579472}
+  - component: {fileID: 5120966972092579474}
   m_Layer: 0
-  m_Name: vampire_a_lusth
+  m_Name: Vampire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9719,20 +9720,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spottingDist: 4.49
-  attackingDist: 1.59
+  attackingDist: 1.64
   loseSightDist: 5.52
   runSpeed: 12
   rotationSpeed: 35
   enemyStat: {fileID: 11400000, guid: 61f69519f64b3c34ea61103401b2114d, type: 2}
-  weaponObject: {fileID: 11400000, guid: f617b158fffb3594ba949c77e8351b61, type: 2}
+  weaponObject: {fileID: 11400000, guid: 698b9dae00e95ce49b7fd081f56da237, type: 2}
   parentForMelee: {fileID: 4375551456570861355}
   state: 0
   actionState: 0
   dashDistance: 0
+  dodashAtthisDistance: 3
   dashTime: 1
   dashChance: 0.5
-  stopNear: 0.5
-  dashSpeed: 20
+  dashSpeed: 15
+  dashCooldown: 4
 --- !u!143 &5120966972092579470
 CharacterController:
   m_ObjectHideFlags: 0
@@ -9765,7 +9767,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -9801,8 +9803,20 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &5120966972092579474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5120966972092579467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4b20aba73f8a164d9e136daab6276c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5129271780524501173
 Transform:
   m_ObjectHideFlags: 0
@@ -10062,7 +10076,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5120966972092579467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.934752, y: 0.00000166893, z: -7.541883}
+  m_LocalPosition: {x: -9.21, y: 0.00000166893, z: -1.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5486058714451272504}
@@ -12105,8 +12119,8 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
@@ -12179,7 +12193,7 @@ MonoBehaviour:
   backKey: 108
   pickupKey: 101
   weaponsInBackPack:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 0b75a2f87bc56f64996522123dc971e2, type: 2}
 --- !u!135 &8859858222550120473
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12239,11 +12253,11 @@ MonoBehaviour:
   consumableThrowableButton: {fileID: 2454687876892756109, guid: 577b241e32137224ba0261f1de6d3e2a, type: 3}
   currentConsumableImage: {fileID: 2010757239}
   clothes:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 6246371cdeada494298100d888d3ccd7, type: 2}
+  - {fileID: 11400000, guid: 7e9bf2de2ffe9af4bae6e078ede03241, type: 2}
   consumables:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: db7e5a0a5a98bde41b8a5f9fd1de5798, type: 2}
+  - {fileID: 11400000, guid: 51e02b5bc5a4c5e4b868db390257d915, type: 2}
 --- !u!114 &8859858222550120477
 MonoBehaviour:
   m_ObjectHideFlags: 0

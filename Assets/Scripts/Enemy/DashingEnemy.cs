@@ -5,10 +5,12 @@ using UnityEngine;
 public class DashingEnemy : Enemy
 {
     public float dashDistance;
+    public float dodashAtthisDistance = 3f;
     public float dashTime = 2f;
     public float dashChance = 0.5f;
-    public float stopNear = 0.5f;
     public float dashSpeed;
+    public float dashCooldown = 4f;
+    private float actualdashCooldown = 0;
     Vector3 playerPos;
     bool isDashing;
     CharacterController controller;
@@ -17,23 +19,40 @@ public class DashingEnemy : Enemy
     protected override void Start()
     {
         base.Start();
-        controller = GetComponent<CharacterController>();
+        controller = this.GetComponent<CharacterController>();
         controller.detectCollisions = false;
     }
     protected override void Update()
     {
         base.Update();       
     }
+    public override void Attack()
+    {
+        base.Attack();
+    }
     public override void Chase()
     {
         bool dashChanceBool = Random.value < dashChance;
         if (!dashChanceBool)
         {
-            base.Chase();
+            controller.enabled = false;
+            base.Chase();          
         }
         else if (dashChanceBool)
-        {            
-            StartCoroutine(Dash());
+        {           
+            if (actualdashCooldown > 0)
+            {
+                actualdashCooldown -= 1 * Time.deltaTime;
+            }
+            else
+            {
+                if (Vector3.Distance(transform.position, player.transform.position) >= dodashAtthisDistance)
+                {
+                    controller.enabled = true;
+                    StartCoroutine(Dash());
+                }
+                actualdashCooldown = dashCooldown;
+            }
         }
     }
     private IEnumerator Dash()
@@ -45,16 +64,23 @@ public class DashingEnemy : Enemy
         while (Time.time < startTime + dashTime)
         {
             isDashing = true;
-            Vector3 dashTo = playerPos-transform.position * dashSpeed * Time.deltaTime;
-            //dashTo.y = gravity.y;
-            controller.Move(dashTo);
-            if (Vector3.Distance(transform.position,player.transform.position)<=stopNear)
+            navMeshAgent.isStopped = true;
+            //dashTo.y = gravity.y;         
+            Vector3 dashTo;
+            if (Vector3.Distance(transform.position,player.transform.position)>attackingDist)
             {
-                break; 
+                transform.LookAt(lookAtPlayer);
+                dashTo = ((player.transform.position-transform.position).normalized * dashDistance)* dashSpeed * Time.deltaTime;
+                controller.Move(dashTo);
+            }
+            else if (Vector3.Distance(transform.position, player.transform.position) <= attackingDist)
+            {               
+                break;
             }
             yield return null;
         }
-        isDashing = false;  
+        isDashing = false;
+        navMeshAgent.isStopped = false;
         //controller.enabled = false;
     }
 }
