@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour,IAI
     public WeaponObject weaponObject;
     public Transform parentForMelee;
     [HideInInspector]protected NavMeshAgent navMeshAgent;
-    [HideInInspector]Animator animator;    
+    [HideInInspector]protected Animator animator;    
     [HideInInspector]protected Vector3 lookAtPlayer;
     string lastAttack;
     private float actualCoolDown = 0;
