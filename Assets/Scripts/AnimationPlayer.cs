@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimationPlayer : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
 
     private void Start()
     {
@@ -16,6 +16,13 @@ public class AnimationPlayer : MonoBehaviour
         animator.applyRootMotion = isInteracting;
         animator.SetBool("IsInteracting", isInteracting);
         animator.CrossFade(targetAnim, 0.2f);
+    }
+    public void PlayerTargetAnim(Animator myAnimator, string targetAnim, bool isInteracting)
+    {
+        if (myAnimator.GetBool("IsInteracting")) { return; }
+        myAnimator.applyRootMotion = isInteracting;
+        myAnimator.SetBool("IsInteracting", isInteracting);
+        myAnimator.CrossFade(targetAnim, 0.2f);
     }
     
     public Animator GetAnimator()
