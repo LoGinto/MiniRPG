@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AnimationPlayer : MonoBehaviour
 {
-    public Animator animator;
-
+    Animator animator;
+    public bool isBeingEaten = false;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -16,13 +16,6 @@ public class AnimationPlayer : MonoBehaviour
         animator.applyRootMotion = isInteracting;
         animator.SetBool("IsInteracting", isInteracting);
         animator.CrossFade(targetAnim, 0.2f);
-    }
-    public void PlayerTargetAnim(Animator myAnimator, string targetAnim, bool isInteracting)
-    {
-        if (myAnimator.GetBool("IsInteracting")) { return; }
-        myAnimator.applyRootMotion = isInteracting;
-        myAnimator.SetBool("IsInteracting", isInteracting);
-        myAnimator.CrossFade(targetAnim, 0.2f);
     }
     
     public Animator GetAnimator()
@@ -36,6 +29,10 @@ public class AnimationPlayer : MonoBehaviour
     public void DisableCombo()
     {
         animator.SetBool("CanDoCombo", false);
+    }
+    public void  SetEatingTrigger()
+    {
+        isBeingEaten = true;     
     }
     private void Update()
     {

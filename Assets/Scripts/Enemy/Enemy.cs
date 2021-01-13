@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour,IAI
        calmBehavior,chasing, lostSight,attacking
     }
     protected GameObject player;
-    bool sight;
+    protected bool sight;
     bool comboChance;
     [SerializeField] float spottingDist;
     [SerializeField] protected float attackingDist;

@@ -15,8 +15,7 @@ D:/project/PortfolioProject_Demo
 -logFile
 Logs/AssetImportWorker32.log
 -srvPort
-54249
+51877
 Successfully changed project path to: D:/project/PortfolioProject_Demo
 D:/project/PortfolioProject_Demo
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 199.31 ms, found 0 plugins.
