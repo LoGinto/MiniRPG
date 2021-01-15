@@ -19,7 +19,14 @@ public class WeaponIndexHolder : MonoBehaviour
     {
         if (weaponToClickIndex <= betterFighter.weaponsInBackPack.Count)
         {
-            betterFighter.EquipWeaponFromInventory(weaponToClickIndex);
+            if (!betterFighter.weaponsInBackPack[weaponToClickIndex].isLeftHandWeapon)
+            {
+                betterFighter.EquipWeaponFromInventory(weaponToClickIndex);
+            }
+            else
+            {
+                betterFighter.LeftHandEquipment(weaponToClickIndex);
+            }
         }
     }
     public void EquipCloth()

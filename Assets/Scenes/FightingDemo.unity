@@ -2662,7 +2662,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625093818}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2177329, y: 2.5000007, z: 3.8653767}
+  m_LocalPosition: {x: -1.2177339, y: 2.5000007, z: 3.8653786}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 770123458}
@@ -3378,7 +3378,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770123456}
-  m_LocalRotation: {x: -0.08830159, y: 0.855009, z: -0.15504271, w: -0.48695394}
+  m_LocalRotation: {x: -0.08830156, y: 0.8550092, z: -0.15504272, w: -0.48695374}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3990,8 +3990,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078121410}
-  m_LocalRotation: {x: -0.07942954, y: 0.85768783, z: -0.13946488, w: -0.48847947}
-  m_LocalPosition: {x: -1.2177329, y: 2.5000007, z: 3.8653767}
+  m_LocalRotation: {x: -0.0794295, y: 0.85768795, z: -0.13946491, w: -0.48847926}
+  m_LocalPosition: {x: -1.2177339, y: 2.5000007, z: 3.8653786}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5140,7 +5140,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461236467}
-  m_LocalRotation: {x: -0.07055474, y: 0.86007667, z: -0.12388222, w: -0.48984012}
+  m_LocalRotation: {x: -0.070554696, y: 0.8600768, z: -0.123882234, w: -0.4898399}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6745,7 +6745,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778415430}
-  m_LocalRotation: {x: -0.079429545, y: 0.8576878, z: -0.13946486, w: -0.48847964}
+  m_LocalRotation: {x: -0.07942951, y: 0.8576879, z: -0.1394649, w: -0.48847935}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -12215,16 +12215,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponObject: {fileID: 0}
+  leftHandWeapon: {fileID: 0}
   attackSpeed: 1.5
   consumableUseKey: 113
   equipmentParent: {fileID: 4959247759874348715}
+  leftHandParent: {fileID: 334928908764738216}
   consumableParent: {fileID: 334928908764738216}
   emptryThrowTarget: {fileID: 464188242}
   forwardKey: 111
   backKey: 108
   pickupKey: 101
+  blockKey: 114
   weaponsInBackPack:
   - {fileID: 11400000, guid: 0b75a2f87bc56f64996522123dc971e2, type: 2}
+  - {fileID: 11400000, guid: 9d096f46fad93b44fa67a87b2d964f60, type: 2}
 --- !u!135 &8859858222550120473
 SphereCollider:
   m_ObjectHideFlags: 0

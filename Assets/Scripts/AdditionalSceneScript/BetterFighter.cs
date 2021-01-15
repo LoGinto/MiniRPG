@@ -7,12 +7,14 @@ public class BetterFighter : MonoBehaviour
     #region Encapsulation
     //refactored fighter
     public WeaponObject weaponObject;
+    public WeaponObject leftHandWeapon;
     [HideInInspector] Animator animator;
     [HideInInspector] PlayerStats stats;
     [SerializeField] float attackSpeed = 1.5f;
     [HideInInspector] AnimationPlayer animationPlayer;
     [SerializeField] KeyCode consumableUseKey = KeyCode.Q;
     public Transform equipmentParent;
+    public Transform leftHandParent;
     public Transform consumableParent;
     public Transform emptryThrowTarget;
     private int index = -1;
@@ -20,6 +22,7 @@ public class BetterFighter : MonoBehaviour
     [SerializeField] KeyCode forwardKey = KeyCode.O;
     [SerializeField] KeyCode backKey = KeyCode.L;
     [SerializeField] KeyCode pickupKey = KeyCode.E;
+    [SerializeField] KeyCode blockKey = KeyCode.R;
     [HideInInspector] BetterInventory inventory;
     public List<WeaponObject> weaponsInBackPack = new List<WeaponObject>();
     string lastAttack = "";
@@ -28,11 +31,13 @@ public class BetterFighter : MonoBehaviour
     const string heavyAttack1 = "HeavyAttack1";
     const string heavyAttack2 = "HeavyAttack2";
     bool canDoCombo;
+    bool isHoldingShield;
     bool comboFlag;
     #endregion
     // Start is called before the first frame update
     void Start()
     {
+        isHoldingShield = false;
         animator = GetComponent<Animator>();
         stats = GetComponent<PlayerStats>();
         inventory = GetComponent<BetterInventory>();
@@ -46,6 +51,7 @@ public class BetterFighter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ShieldLogic();
         canDoCombo = animationPlayer.GetAnimator().GetBool("CanDoCombo");
         ConsumeOrThrow(stats);
         if (Input.GetKeyDown(KeyCode.T))
@@ -79,10 +85,59 @@ public class BetterFighter : MonoBehaviour
         }
         if (weaponObject != null)
         {
-            if (!gameObject.GetComponent<BetterInventory>().WeaponsInventoryIsOpen() && gameObject.GetComponent<BetterInventory>().InventoryIsOpen() == false && gameObject.GetComponent<BetterInventory>().ClothInventoryIsOpen() == false&&!gameObject.GetComponent<BetterInventory>().ConsumableInventoryIsOpen())
+            if (!gameObject.GetComponent<BetterInventory>().WeaponsInventoryIsOpen() && gameObject.GetComponent<BetterInventory>().InventoryIsOpen() == false && gameObject.GetComponent<BetterInventory>().ClothInventoryIsOpen() == false && !gameObject.GetComponent<BetterInventory>().ConsumableInventoryIsOpen())
             {
                 AttackBehavior();
             }
+        }
+    }
+    void ShieldLogic()
+    {
+        Vector3 shieldOnPos = new Vector3(0.07622319f, -0.1480567f, -0.121954f);
+        Vector3 shieldOnRot = new Vector3(-10.499f, -253.194f, 101.297f);   
+        bool attackAnimPlaying = this.animator.GetCurrentAnimatorStateInfo(2).IsName(lightAttack1) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(lightAttack2) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(heavyAttack1) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(heavyAttack2);
+        if (!twoHand)
+        {
+            if (Input.GetKeyDown(blockKey) && !attackAnimPlaying)
+            {
+                isHoldingShield = !isHoldingShield;
+                if (isHoldingShield)
+                {
+                    animationPlayer.PlayerTargetAnim("PutOnShield", false);
+                    if (leftHandWeapon != null)
+                    {
+                        leftHandWeapon.GetInstance().transform.localEulerAngles = shieldOnRot;
+                        leftHandWeapon.GetInstance().transform.localPosition = shieldOnPos;
+                    }
+                }
+                else
+                {
+                    if (leftHandWeapon != null)
+                    {
+                        leftHandWeapon.GetInstance().transform.localEulerAngles = leftHandWeapon.oneHandedEquipmentRotation;
+                        leftHandWeapon.GetInstance().transform.localPosition = leftHandWeapon.oneHandedEquipmentPosition;
+                    }
+                }
+            }
+            if (leftHandWeapon != null)
+            {
+                if (isHoldingShield)
+                {
+                    animator.SetLayerWeight(3, 1);
+                }
+                else
+                {
+                    animator.SetLayerWeight(3, 0);
+                }
+            }
+        }
+        else
+        {
+            animator.SetLayerWeight(3, 0);
+        }
+        if (attackAnimPlaying)
+        {
+            isHoldingShield = false;
         }
     }
     void AttackBehavior()
@@ -90,7 +145,7 @@ public class BetterFighter : MonoBehaviour
         SwitchComboCheck();
         if (Input.GetMouseButtonDown(0))
         {
-
+            isHoldingShield = false;
             if (stats.currentStamina >= weaponObject.baseStaminaDrain * weaponObject.lightAttackMultiplier)
             {
 
@@ -112,6 +167,7 @@ public class BetterFighter : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
+            isHoldingShield = false;
             if (stats.currentStamina >= weaponObject.baseStaminaDrain * weaponObject.heavyAttackMultiplier)
             {
 
@@ -279,6 +335,15 @@ public class BetterFighter : MonoBehaviour
         weaponObject = weaponsInBackPack[indexToEquip];
         animator.runtimeAnimatorController = weaponObject.weaponOvveride;
         weaponObject.EquipOn(false, equipmentParent);
+    }
+    public void LeftHandEquipment(int indexToEquip)
+    {
+        if(leftHandWeapon != null && leftHandWeapon.isLeftHandWeapon)
+        {
+            Unequip(leftHandWeapon);
+        }
+        leftHandWeapon = weaponsInBackPack[indexToEquip];
+        leftHandWeapon.EquipOn(false, leftHandParent);
     }
     void ConsumeOrThrow(PlayerStats stats)
     {
