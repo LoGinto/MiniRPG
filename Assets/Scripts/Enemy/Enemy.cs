@@ -22,13 +22,13 @@ public class Enemy : MonoBehaviour,IAI
     [SerializeField] float loseSightDist;
     [SerializeField] float runSpeed = 12;
     [SerializeField] float rotationSpeed = 35f;//angular speed in degrees
-    [SerializeField] EnemyStat enemyStat;
+    [SerializeField] protected EnemyStat enemyStat;
     public WeaponObject weaponObject;
     public Transform parentForMelee;
     [HideInInspector]protected NavMeshAgent navMeshAgent;
     [HideInInspector]protected Animator animator;    
     [HideInInspector]protected Vector3 lookAtPlayer;
-    string lastAttack;
+    [HideInInspector]public string lastAttack;
     private float actualCoolDown = 0;
     bool isHavingattackAnim;
     public States state = States.calm;

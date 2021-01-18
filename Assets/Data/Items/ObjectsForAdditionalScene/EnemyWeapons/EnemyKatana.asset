@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fe1a1950a866384e9d859d0cf6deec3, type: 3}
+  m_Name: EnemyKatana
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  weaponOvveride: {fileID: 0}
+  twoHandWeaponOvveride: {fileID: 0}
+  baseStaminaDrain: 0
+  lightAttackMultiplier: 0
+  heavyAttackMultiplier: 0
+  baseDamage: 0
+  oneHandedEquipmentPosition: {x: 0.06036941, y: -0.004022185, z: 0.008778455}
+  twoHandedEquipmentPosition: {x: 0, y: 0, z: 0}
+  oneHandedEquipmentRotation: {x: 0.004, y: 0.735, z: 89.733}
+  twoHandedEquipmentRotation: {x: 0, y: 0, z: 0}
+  model: {fileID: 2867392053368657903, guid: df182c83cc952f74fac7ebd64c3c0af2, type: 3}
+  lightAttackImpactAnimName: 
+  lightAttack2ImpactAnimName: 
+  heavyAttackImpactAnimName: 
+  heavyAttack2ImpactAnimName: 
+  isLeftHandWeapon: 0
