@@ -76,6 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWeapon: {fileID: 11400000, guid: f617b158fffb3594ba949c77e8351b61, type: 2}
+  defaultWeaponDamageforError: 35
+  interuptionAnimName: attack_interrupt
   enemyStat: {fileID: 11400000, guid: 437e8f70bdbf1ed40a4f023889ce98cc, type: 2}
 --- !u!1 &1288826839163882768
 GameObject:

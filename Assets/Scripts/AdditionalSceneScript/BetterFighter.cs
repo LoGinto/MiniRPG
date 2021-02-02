@@ -345,6 +345,10 @@ public class BetterFighter : MonoBehaviour
         leftHandWeapon = weaponsInBackPack[indexToEquip];
         leftHandWeapon.EquipOn(false, leftHandParent);
     }
+    public bool GetIsHoldingShield()
+    {
+        return isHoldingShield;
+    }
     void ConsumeOrThrow(PlayerStats stats)
     {
         //to do 

@@ -181,6 +181,10 @@ public class Enemy : MonoBehaviour,IAI
             navMeshAgent.SetDestination(player.transform.position);
         }        
     }
+    public bool GetIsHavingAttackAnim()
+    {
+        return isHavingattackAnim;
+    }
     public virtual void Calm()
     {
         Debug.Log(gameObject.name + " is calm");
@@ -264,6 +268,13 @@ public class Enemy : MonoBehaviour,IAI
         animator.applyRootMotion = isInteracting;
         animator.SetBool("IsInteracting", isInteracting);
         animator.CrossFade(targetAnim, 0.2f);
+    }
+    public virtual void EnemyInterruptingAnim(string targetAnim)
+    {
+        if (animator.GetBool("IsInteracting"))
+        {
+            animator.CrossFade(targetAnim, 0.2f);
+        }
     }
     public EnemyStat GetEnemyStat()
     {

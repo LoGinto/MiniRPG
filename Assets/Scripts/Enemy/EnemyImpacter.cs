@@ -7,11 +7,18 @@ public class EnemyImpacter : MonoBehaviour
 {
     public WeaponObject enemyWeapon;
     public float defaultWeaponDamageforError = 35f;
+    public string interuptionAnimName = "attack_interrupt";
     [SerializeField] EnemyStat enemyStat = null;
     float dealingDamage;
+    bool blocked = false;
+    public float staminaDepletionPerHit = 20f;
+    GameObject player;
+    Shield shield = null;
+    bool shieldUP;
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
     void OnEnable()
@@ -31,6 +38,10 @@ public class EnemyImpacter : MonoBehaviour
         catch
         {
             CalculateDamage();
+        }
+        if(shield != null)
+        {
+            shieldUP = shield.shieldUp;
         }
     }
     void CalculateDamage()
@@ -75,10 +86,31 @@ public class EnemyImpacter : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.GetComponent<Shield>())
+        {            
+            shield = other.GetComponent<Shield>();
+            //interupt attack
+            if (shieldUP == true)
+            {
+                if (transform.root.GetComponent<Enemy>().GetIsHavingAttackAnim())
+                {
+                    Debug.Log($"{transform.root} attack should interrupt");
+                    transform.root.GetComponent<Enemy>().EnemyInterruptingAnim(interuptionAnimName);
+                    transform.root.GetComponent<Animator>().CrossFade(interuptionAnimName, 0.1f);
+                }
+            }
+            else if (shieldUP == false)
+            {
+                player.GetComponent<HealthManager>().TakeDamage(dealingDamage);
+            }
+        }
+        else 
         {
-            Debug.Log("Knight gives " + dealingDamage + "to " + other.name);
-            other.GetComponent<HealthManager>().TakeDamage(dealingDamage);
+            if (shield == null|| shieldUP == false)
+            {
+                player.GetComponent<HealthManager>().TakeDamage(dealingDamage);
+            }
         }
     }
+   
 }
