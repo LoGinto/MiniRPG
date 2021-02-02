@@ -17,7 +17,9 @@ public class Enemy : MonoBehaviour,IAI
     protected GameObject player;
     protected bool sight;
     bool comboChance;
+    public Transform backStabberTransform;
     [SerializeField] float spottingDist;
+    [SerializeField] bool sightBased;
     [SerializeField] protected float attackingDist;
     [SerializeField] float loseSightDist;
     [SerializeField] float runSpeed = 12;
@@ -47,6 +49,15 @@ public class Enemy : MonoBehaviour,IAI
         navMeshAgent.speed = runSpeed;
         
     }
+    public void  BecomeAgressive()
+    {
+        if (GetComponent<Enemy>() != null)
+        {
+           sight = true;
+           state = States.agressive;                       
+        }
+    }
+   
     // Update is called once per frame
     protected virtual void Update()
     {
@@ -219,17 +230,39 @@ public class Enemy : MonoBehaviour,IAI
         //if state agressive and not within attack dist ---> chase 
         //if close enough ---> attack
         //if player far enough ---> lost sight behavior
-        //go back to calm
+        //go back to cal
         if (!sight && state == States.calm)
         {
-            if (IsCloseTo(spottingDist))
+            if (!sightBased)
             {
-                sight = true;
-                state = States.agressive;
+                if (IsCloseTo(spottingDist))
+                {
+                    sight = true;
+                    state = States.agressive;
+                }
+                else
+                {
+                    actionState = ActionState.calmBehavior;
+                }
             }
             else
             {
-                actionState = ActionState.calmBehavior;
+                float minAngle = -50f;
+                float maxAngle = 50f;
+                Vector3 targetDir = player.transform.position - transform.position;
+                float viewableAngle = Vector3.Angle(targetDir, transform.forward);
+                if (viewableAngle > minAngle && viewableAngle < maxAngle)
+                {
+                    sight = true;
+                    state = States.agressive;
+                }
+                else
+                {
+                    if (state == States.calm)
+                    {
+                        actionState = ActionState.calmBehavior;
+                    }
+                }
             }
         }
         if (IsCloseTo(attackingDist) && state == States.agressive && sight)

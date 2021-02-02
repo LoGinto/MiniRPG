@@ -16,10 +16,10 @@ public class CharacterIK : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+    // Update is called once per frame 
     void Update()
     {
-        bool turnOffAnim = this.animator.GetCurrentAnimatorStateInfo(2).IsName("Roll")|| this.animator.GetCurrentAnimatorStateInfo(2).IsName("Roll")||animator.GetFloat("Move")>0.5f;
+        bool turnOffAnim = this.animator.GetCurrentAnimatorStateInfo(3).IsName("BlockIdle") || this.animator.GetCurrentAnimatorStateInfo(2).IsName("Roll")|| this.animator.GetCurrentAnimatorStateInfo(2).IsName("Roll")||animator.GetFloat("Move")>0.5f|| this.animator.GetCurrentAnimatorStateInfo(2).IsName("BackStab");
         if (turnOffAnim == true)
         {
             ikWeight = 0;
@@ -40,6 +40,7 @@ public class CharacterIK : MonoBehaviour
         animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, ikWeight);
         animator.SetIKPosition(AvatarIKGoal.LeftFoot,p_leftFoot);
         animator.SetIKPosition(AvatarIKGoal.RightFoot, p_rightFoot);
+
     }
     private Vector3 GetHitPoint(Vector3 start, Vector3 end)
     {

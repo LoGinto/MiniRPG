@@ -17,7 +17,9 @@ public class BetterFighter : MonoBehaviour
     public Transform leftHandParent;
     public Transform consumableParent;
     public Transform emptryThrowTarget;
-    private int index = -1;
+    public Transform criticalAttackRayPoint;
+    public float criticalDmg = 3000;
+    [HideInInspector]private int index = -1;
     [HideInInspector] private bool twoHand = false;
     [SerializeField] KeyCode forwardKey = KeyCode.O;
     [SerializeField] KeyCode backKey = KeyCode.L;
@@ -26,13 +28,13 @@ public class BetterFighter : MonoBehaviour
     [HideInInspector] BetterInventory inventory;
     public List<WeaponObject> weaponsInBackPack = new List<WeaponObject>();
     string lastAttack = "";
-    const string lightAttack1 = "LightAttack1";
-    const string lightAttack2 = "LightAttack2";
-    const string heavyAttack1 = "HeavyAttack1";
-    const string heavyAttack2 = "HeavyAttack2";
-    bool canDoCombo;
-    bool isHoldingShield;
-    bool comboFlag;
+    [HideInInspector]const string lightAttack1 = "LightAttack1";
+    [HideInInspector]const string lightAttack2 = "LightAttack2";
+    [HideInInspector]const string heavyAttack1 = "HeavyAttack1";
+    [HideInInspector]const string heavyAttack2 = "HeavyAttack2";
+    [HideInInspector]bool canDoCombo;
+    [HideInInspector]bool isHoldingShield;
+    [HideInInspector]bool comboFlag;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -52,6 +54,10 @@ public class BetterFighter : MonoBehaviour
     void Update()
     {
         ShieldLogic();
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            AttemptCritical();
+        }
         canDoCombo = animationPlayer.GetAnimator().GetBool("CanDoCombo");
         ConsumeOrThrow(stats);
         if (Input.GetKeyDown(KeyCode.T))
@@ -392,6 +398,42 @@ public class BetterFighter : MonoBehaviour
                 }
             }
         }
+    }
+    void AttemptCritical()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(criticalAttackRayPoint.position,transform.TransformDirection(Vector3.forward),out hit))
+        {
+            if (hit.collider.GetComponent<Enemy>())
+            {
+                Enemy enemy = hit.collider.GetComponent<Enemy>();
+                Vector3 view = hit.collider.transform.forward;
+                view.Normalize(); 
+                Vector3 br = transform.position - hit.collider.transform.position;
+                br.Normalize();
+                if (DotProduct(view, br) < -0.5)
+                {
+                    Debug.Log("BackStab");
+                    transform.position = enemy.backStabberTransform.position;
+                    Vector3 rotationDir = transform.eulerAngles;
+                    rotationDir = hit.transform.position - transform.position;
+                    rotationDir.y = 0;
+                    rotationDir.Normalize();
+                    Quaternion tr = Quaternion.LookRotation(rotationDir);
+                    Quaternion targetRot = Quaternion.Slerp(transform.rotation, tr, 500 * Time.deltaTime);
+                    transform.rotation = targetRot;
+                    animationPlayer.PlayerTargetAnim("BackStab", true);
+                    enemy.EnemyTargetAnim("BackStabbed", true);
+                    criticalDmg = enemy.GetComponent<EnemyHealth>().GetEnemyHealth() / 2;
+                    enemy.GetComponent<EnemyHealth>().TakeDamage(criticalDmg);
+                    //enemy.SetSight(true);
+                }
+            }
+        }    
+    }
+    private float DotProduct(Vector3 a, Vector3 b )
+    {
+        return a.x * b.x + a.y * b.y + a.z * b.z;
     }
     #region ConsumeAnimEvents
     public void DrinkConsumableSpawnBottleEvent()

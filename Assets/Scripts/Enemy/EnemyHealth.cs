@@ -59,8 +59,8 @@ public class EnemyHealth : HealthManager
         }
         if (health <= 0)
         {
-            //death
-            animator.CrossFade("Death1", 0.2f);
+            //death BackStabbed           
+            animator.CrossFade("Death1", 0.2f);          
             FindObjectOfType<PlayerStats>().soulsCount += enemyStat.soulDrop;
             deathEvent?.Invoke();
         }
@@ -74,5 +74,9 @@ public class EnemyHealth : HealthManager
     public EnemyStat GetEnemyStat()
     {
         return enemyStat;
+    }
+    public float GetEnemyHealth()
+    {
+        return health;
     }
 }
