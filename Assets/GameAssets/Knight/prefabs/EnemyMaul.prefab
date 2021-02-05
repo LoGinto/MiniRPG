@@ -43,7 +43,7 @@ BoxCollider:
   m_GameObject: {fileID: 277905126585503060}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.08064571, y: 0.63901246, z: 0.24802372}
   m_Center: {x: 0, y: 0.4795063, z: 0.010988146}
@@ -79,6 +79,7 @@ MonoBehaviour:
   defaultWeaponDamageforError: 35
   interuptionAnimName: attack_interrupt
   enemyStat: {fileID: 11400000, guid: 437e8f70bdbf1ed40a4f023889ce98cc, type: 2}
+  staminaDepletionPerHit: 20
 --- !u!1 &1288826839163882768
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +92,6 @@ GameObject:
   - component: {fileID: 1266576890812992226}
   - component: {fileID: 1276177219165975234}
   - component: {fileID: 8344759752000806862}
-  - component: {fileID: 5052676481606281186}
   m_Layer: 0
   m_Name: Maul
   m_TagString: Untagged
@@ -178,16 +178,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &5052676481606281186
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288826839163882768}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.07732156, y: 0.6617211, z: 0.3112294}
-  m_Center: {x: 0, y: 0.48005384, z: -0.021909565}

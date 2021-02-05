@@ -40,18 +40,18 @@ public class EnemyDamageCollider : MonoBehaviour
     }
     public  void TurnOnColliderAnim()
     {
-        if (this.enemyWeaponCollider != null)
+        if (enemyWeaponCollider != null)
         {
-            this.enemyWeaponCollider.enabled = true;
-            //Debug.Log("Weapon enabled");
+            enemyWeaponCollider.enabled = true; 
+            Debug.Log("Weapon enabled");
         }
     }
     public  void TurnOffColliderAnim()
     {
-        if (this.enemyWeaponCollider != null)
+        if (enemyWeaponCollider != null)
         {
-            this.enemyWeaponCollider.enabled = false;
-            //Debug.Log("Weapon enabled");
+            enemyWeaponCollider.enabled = false;
+            Debug.Log("Weapon disabled");
         }
     }
     public Collider GetCollider()
