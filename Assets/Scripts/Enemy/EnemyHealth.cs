@@ -52,6 +52,10 @@ public class EnemyHealth : HealthManager
             {
                 animator.CrossFade(betterFighter.weaponObject.heavyAttack2ImpactAnimName, 0.1f);
             }
+            else if(betterFighter.GetLastAttack() == "BackStab")
+            {
+                animator.CrossFade("BackStabbed", 0.1f);
+            }
         }
         catch
         {

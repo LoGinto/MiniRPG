@@ -29,3 +29,5 @@ MonoBehaviour:
   heavyAttackImpactAnimName: 
   heavyAttack2ImpactAnimName: 
   isLeftHandWeapon: 1
+  isAShield: 1
+  isRanged: 0

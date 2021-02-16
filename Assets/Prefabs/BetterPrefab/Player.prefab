@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &973534429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 973534430}
+  m_Layer: 6
+  m_Name: CriticalRayPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &973534430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973534429}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 1.24, z: 0.241}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2962767673001182995}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9608916434093438
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,7 +1042,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2474179531532885417}
-  m_LocalRotation: {x: -0, y: -0.99812824, z: -0, w: -0.06115554}
+  m_LocalRotation: {x: -0, y: -0.9981284, z: 0, w: -0.0611529}
   m_LocalPosition: {x: -4.658057, y: 0.00000071525574, z: 1.8247473}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1021,6 +1051,7 @@ Transform:
   - {fileID: 7299648131760744327}
   - {fileID: 6386815863938294027}
   - {fileID: 6386815863660074730}
+  - {fileID: 973534430}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -187.012, z: 0}
@@ -1156,12 +1187,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponObject: {fileID: 0}
   leftHandWeapon: {fileID: 0}
+  bulletAmt: 20
   attackSpeed: 1.5
   consumableUseKey: 113
   equipmentParent: {fileID: 2049224415057900307}
   leftHandParent: {fileID: 6631391164170589968}
   consumableParent: {fileID: 6631391164170589968}
   emptryThrowTarget: {fileID: 6386815863660074730}
+  criticalAttackRayPoint: {fileID: 973534430}
+  criticalDmg: 3000
   forwardKey: 111
   backKey: 108
   pickupKey: 101
@@ -1169,6 +1203,7 @@ MonoBehaviour:
   weaponsInBackPack:
   - {fileID: 11400000, guid: 0b75a2f87bc56f64996522123dc971e2, type: 2}
   - {fileID: 11400000, guid: 9d096f46fad93b44fa67a87b2d964f60, type: 2}
+  - {fileID: 11400000, guid: 58f7f6ec53401f149b187c114a052e63, type: 2}
 --- !u!135 &2474179531532885409
 SphereCollider:
   m_ObjectHideFlags: 0

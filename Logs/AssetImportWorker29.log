@@ -15,13 +15,7 @@ D:/project/PortfolioProject_Demo
 -logFile
 Logs/AssetImportWorker29.log
 -srvPort
-52993
+51044
 Successfully changed project path to: D:/project/PortfolioProject_Demo
 D:/project/PortfolioProject_Demo
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 421.37 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Initialize engine version: 2020.2.0f1 (3721df5a8b28)
-[Subsystems] Discovering subsystems at path D:/unity/2020.2.0f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path D:/project/PortfolioProject_Demo/Assets
-GfxDevice: creating device client; threaded=0

@@ -31,6 +31,8 @@ public class WeaponObject : ScriptableObject
     public string heavyAttack2ImpactAnimName;
     [Header("Other vars")]
     public bool isLeftHandWeapon;
+    public bool isAShield;
+    public bool isRanged;
     GameObject instance;
     public float DamageCalculator(int level)
     {
