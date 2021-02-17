@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour,IAI
     [SerializeField] protected EnemyStat enemyStat;
     public WeaponObject weaponObject;
     public Transform parentForMelee;
+    public bool isStun = false;
     [HideInInspector]protected NavMeshAgent navMeshAgent;
     [HideInInspector]protected Animator animator;    
     [HideInInspector]protected Vector3 lookAtPlayer;
@@ -40,6 +41,14 @@ public class Enemy : MonoBehaviour,IAI
    protected virtual void Awake()
     {
         AssignWeapon();
+    }
+    public void SetStunEnemy()
+    {
+        isStun = true;
+    }
+    public void SetUnstunEnemy()
+    {
+        isStun = false;
     }
     protected virtual void Start()
     {

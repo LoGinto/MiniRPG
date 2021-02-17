@@ -19,7 +19,7 @@ public class CharacterIK : MonoBehaviour
     // Update is called once per frame 
     void Update()
     {
-        bool turnOffAnim = this.animator.GetCurrentAnimatorStateInfo(3).IsName("BlockIdle") || this.animator.GetCurrentAnimatorStateInfo(2).IsName("Roll")|| this.animator.GetCurrentAnimatorStateInfo(2).IsName("Roll")||animator.GetFloat("Move")>0.5f|| this.animator.GetCurrentAnimatorStateInfo(2).IsName("BackStab");
+        bool turnOffAnim = this.animator.GetCurrentAnimatorStateInfo(3).IsName("BlockIdle") || this.animator.GetCurrentAnimatorStateInfo(2).IsName("Roll")|| this.animator.GetCurrentAnimatorStateInfo(2).IsName("Roll")||animator.GetFloat("Move")>0.5f|| this.animator.GetCurrentAnimatorStateInfo(2).IsName("BackStab")|| animator.GetFloat("Move") > 0.5f || this.animator.GetCurrentAnimatorStateInfo(2).IsName("ParryShield")|| this.animator.GetCurrentAnimatorStateInfo(3).IsName("PutOnShield")|| this.animator.GetCurrentAnimatorStateInfo(4).IsName("GunShoot");
         if (turnOffAnim == true)
         {
             ikWeight = 0;

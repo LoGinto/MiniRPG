@@ -38,6 +38,7 @@ public class BetterFighter : MonoBehaviour
     [HideInInspector]bool comboFlag;
     [HideInInspector] bool attackAnimPlaying;
     #endregion
+    #region start and update
     // Start is called before the first frame update
     void Start()
     {
@@ -52,54 +53,9 @@ public class BetterFighter : MonoBehaviour
         }
         animationPlayer = FindObjectOfType<AnimationPlayer>();
     }
-    void RifleLogic()
-    {
-        //bool attackAnimPlaying = this.animator.GetCurrentAnimatorStateInfo(2).IsName(lightAttack1) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(lightAttack2) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(heavyAttack1) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(heavyAttack2);
-        try
-        {
-            if (leftHandWeapon != null)
-            {
-                if (leftHandWeapon.isRanged)
-                {
-                    if (Input.GetKeyDown(blockKey))
-                    {
-                        animator.SetLayerWeight(4, 1);
-                        if (bulletAmt > 0)
-                        {
-                            if (!attackAnimPlaying)
-                            {
-                                animationPlayer.PlayerTargetAnim("GunShoot", true);
-                                bulletAmt--;
-                            }                                                 
-                        }
-                    }
-                    if (this.animator.GetCurrentAnimatorStateInfo(4).IsName("GunShoot"))
-                    {
-                        animator.SetLayerWeight(4, 1);
-                        leftHandWeapon.GetInstance().transform.localPosition = new Vector3(-0.131f, 0.032f, -0.111f);
-                        leftHandWeapon.GetInstance().transform.localEulerAngles = new Vector3(-33.384f, 221.004f, -24.91f);
-                    }
-                    else
-                    {
-                        animator.SetLayerWeight(4, 0);
-                        leftHandWeapon.GetInstance().transform.localPosition = leftHandWeapon.oneHandedEquipmentPosition;
-                        leftHandWeapon.GetInstance().transform.localEulerAngles = leftHandWeapon.oneHandedEquipmentRotation;
-                    }
-                }
-                else
-                {
-                    animator.SetLayerWeight(4, 0);
-                }
-            }
-        }
-        catch
-        {
-            Debug.Log("Problem with gun");
-        }
-    }
-    // Update is called once per frame
     void Update()
     {
+        #region update. No need to thank me
         if (leftHandWeapon != null)
         {
             ShieldLogic();
@@ -148,10 +104,123 @@ public class BetterFighter : MonoBehaviour
                 AttackBehavior();
             }
         }
-
+        #endregion
     }
+    #endregion
+    #region left hands
+    #region Rifle
+    void RifleLogic()
+    {
+        //bool attackAnimPlaying = this.animator.GetCurrentAnimatorStateInfo(2).IsName(lightAttack1) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(lightAttack2) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(heavyAttack1) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(heavyAttack2);
+        try
+        {
+            if (leftHandWeapon != null)
+            {
+                if (leftHandWeapon.isRanged)
+                {
+                    if (Input.GetKeyDown(blockKey))
+                    {
+                        animator.SetLayerWeight(4, 1);
+                        if (bulletAmt > 0)
+                        {
+                            if (!attackAnimPlaying)
+                            {
+                                animationPlayer.PlayerTargetAnim("GunShoot", true);
+                                bulletAmt--;
+                            }                                                 
+                        }
+                    }
+                    if (this.animator.GetCurrentAnimatorStateInfo(4).IsName("GunShoot"))
+                    {
+                        animator.SetLayerWeight(4, 1);
+                        leftHandWeapon.GetInstance().transform.localPosition = new Vector3(-0.131f, 0.032f, -0.111f);
+                        leftHandWeapon.GetInstance().transform.localEulerAngles = new Vector3(-33.384f, 221.004f, -24.91f);
+                    }
+                    else
+                    {
+                        animator.SetLayerWeight(4, 0);
+                        leftHandWeapon.GetInstance().transform.localPosition = leftHandWeapon.oneHandedEquipmentPosition;
+                        leftHandWeapon.GetInstance().transform.localEulerAngles = leftHandWeapon.oneHandedEquipmentRotation;
+                    }
+                }
+                else
+                {
+                    animator.SetLayerWeight(4, 0);
+                }
+            }
+        }
+        catch
+        {
+            Debug.Log("Problem with gun");
+        }
+    }
+    public void ShootGun()
+    {
+        if(leftHandWeapon != null)
+        {
+            animator.SetFloat("Move", 0); 
+            if (leftHandWeapon.isRanged)
+            {
+                leftHandWeapon.GetInstance().GetComponent<Shotgun>().ShootTheGun();
+            }
+        }
+    }
+    public int GetBulletAmt()
+    {
+        return bulletAmt; 
+    }
+    #endregion
+    // Update is called once per frame
+    #region Parry
+    public void ParryAnimEvent()
+    {
+        if (leftHandWeapon != null) {
+            if (leftHandWeapon.isAShield)
+            {
+                leftHandWeapon.GetInstance().GetComponentInChildren<ShieldParry>().Parry();
+            }
+        }
+    }
+    public void UnParryEvent()
+    {
+        if (leftHandWeapon != null)
+        {
+            if (leftHandWeapon.isAShield)
+            {
+                leftHandWeapon.GetInstance().GetComponentInChildren<ShieldParry>().BackToNormal();
+            }
+        }
+    }
+    void AttemptCriticalParry()
+    {
+        RaycastHit hit;
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (Physics.Raycast(criticalAttackRayPoint.position, transform.TransformDirection(Vector3.forward), out hit, 0.6f))
+            {
+                if (leftHandWeapon != null)
+                {
+                    if (leftHandWeapon.isAShield)
+                    {
+                        if (hit.collider.GetComponent<Enemy>().isStun)
+                        {
+                            animationPlayer.PlayerTargetAnim("BackStab", true);
+                            hit.collider.GetComponent<Enemy>().EnemyTargetAnim("IsParried", false);
+                            hit.collider.GetComponent<Enemy>().EnemyInterruptingAnim("IsParried");
+                        }
+                        else
+                        {
+                            AttemptCritical(); 
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #endregion
     void ShieldLogic()
     {
+        AttemptCriticalParry(); 
         Vector3 shieldOnPos = new Vector3(0.07622319f, -0.1480567f, -0.121954f);
         Vector3 shieldOnRot = new Vector3(-10.499f, -253.194f, 101.297f);
        // bool attackAnimPlaying = this.animator.GetCurrentAnimatorStateInfo(2).IsName(lightAttack1) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(lightAttack2) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(heavyAttack1) || this.animator.GetCurrentAnimatorStateInfo(2).IsName(heavyAttack2);
@@ -183,7 +252,7 @@ public class BetterFighter : MonoBehaviour
                 }
                 if (leftHandWeapon != null)
                 {
-                    if (isHoldingShield)
+                    if (isHoldingShield&&leftHandWeapon.isAShield)
                     {
                         animator.SetLayerWeight(3, 1);
                     }
@@ -192,19 +261,21 @@ public class BetterFighter : MonoBehaviour
                         animator.SetLayerWeight(3, 0);
                     }
                 }
-            #endregion
+                #endregion               
             }
-            else
-            {
-                animator.SetLayerWeight(3, 0);
-            }
+            //else
+            //{
+            //    animator.SetLayerWeight(3, 0);
+            //}
             if (attackAnimPlaying)
             {
                 isHoldingShield = false;
             }
-        
         }
     }
+    
+    #endregion
+    #region attacks
     void AttackBehavior()
         {
         SwitchComboCheck();
@@ -323,6 +394,8 @@ public class BetterFighter : MonoBehaviour
         animationPlayer.PlayerTargetAnim(heavyAttack1, true);
         lastAttack = heavyAttack1;
     }
+    #endregion
+    #region WeaponSelection and pickup
     void CycleWeapon(bool forward)
     {
         //handle bounds, to do
@@ -414,6 +487,8 @@ public class BetterFighter : MonoBehaviour
     {
         return isHoldingShield;
     }
+    #endregion
+    #region consume and critical attacks
     void ConsumeOrThrow(PlayerStats stats)
     {
         //to do 
@@ -496,6 +571,7 @@ public class BetterFighter : MonoBehaviour
     {
         return a.x * b.x + a.y * b.y + a.z * b.z;
     }
+    #endregion
     #region ConsumeAnimEvents
     public void DrinkConsumableSpawnBottleEvent()
     {
