@@ -205,7 +205,7 @@ public class BetterFighter : MonoBehaviour
                         if (hit.collider.GetComponent<Enemy>().isStun)
                         {
                             animationPlayer.PlayerTargetAnim("BackStab", true);
-                            hit.collider.GetComponent<Enemy>().EnemyTargetAnim("IsParried", false);
+                            hit.collider.GetComponent<Enemy>().EnemyTargetAnim("IsParried", true);
                             hit.collider.GetComponent<Enemy>().EnemyInterruptingAnim("IsParried");
                         }
                         else

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyDamageCollider : MonoBehaviour
 {
-    Collider enemyWeaponCollider = null;
+    public Collider enemyWeaponCollider = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +14,7 @@ public class EnemyDamageCollider : MonoBehaviour
             AssignWeaponCollider();
             Debug.Log("executed");
         }
-        catch { }
+        catch { Debug.Log("Not Assigned weapon collider"); }
     }
     private void Update()
     {
@@ -33,7 +33,7 @@ public class EnemyDamageCollider : MonoBehaviour
                 }
                 catch
                 {
-                    enemyWeaponCollider = GameObject.Find(GetComponent<Enemy>().weaponObject.GetInstance().name).GetComponent<Collider>();
+                    enemyWeaponCollider = transform.Find(this.GetComponent<Enemy>().weaponObject.GetInstance().name).GetComponent<Collider>();
                 }              
             }
         }

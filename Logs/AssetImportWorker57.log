@@ -1,0 +1,21 @@
+Using pre-set license
+Built from '2020.2/release' branch; Version is '2020.2.0f1 (3721df5a8b28) revision 3613151'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10  (10.0.0) 64bit' Language: 'en' Physical Memory: 3930 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+D:\unity\2020.2.0f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker57
+-projectPath
+D:/project/PortfolioProject_Demo
+-logFile
+Logs/AssetImportWorker57.log
+-srvPort
+52151
+Successfully changed project path to: D:/project/PortfolioProject_Demo
+D:/project/PortfolioProject_Demo
+Using Asset Import Pipeline V2.

@@ -53,6 +53,7 @@
     <UnityVersion>2020.2.0f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\UI\BulletCount.cs" />
     <Compile Include="Assets\Scripts\Saving\ISaveable.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyDamageCollider.cs" />
     <Compile Include="Assets\Scripts\Fight\LockOn.cs" />
@@ -61,7 +62,6 @@
     <Compile Include="Assets\Scripts\Fight\Shield.cs" />
     <Compile Include="Assets\Scripts\Enemy\IAI.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />
-    <Compile Include="Assets\Scripts\Enemy\AdvancedEnemy.cs" />
     <Compile Include="Assets\Scripts\Saving\SaveableEntity.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\AdditionalSceneScript\BetterFighter.cs" />
@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\AdditionalSceneScript\WeaponIndexHolder.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyImpacter.cs" />
     <Compile Include="Assets\Scripts\Movement.cs" />
+    <Compile Include="Assets\Scripts\Fight\ShieldParry.cs" />
     <Compile Include="Assets\Scripts\HealthManager.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyStat.cs" />
     <Compile Include="Assets\Scripts\Fight\Shotgun.cs" />
@@ -87,8 +88,7 @@
     <Compile Include="Assets\Scripts\AdditionalSceneScript\ClotheObject.cs" />
     <Compile Include="Assets\Scripts\AnimationPlayer.cs" />
     <Compile Include="Assets\Scripts\AdditionalSceneScript\CharacterIK.cs" />
-    <Compile Include="Assets\Scripts\UI\BulletCount.cs" />
-    <Compile Include="Assets\Scripts\Fight\ShieldParry.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Mage.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
