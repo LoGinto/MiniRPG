@@ -2858,13 +2858,43 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770123456}
-  m_LocalRotation: {x: -0.08892973, y: 0.85302687, z: -0.15468326, w: -0.49041796}
+  m_LocalRotation: {x: -0.08892971, y: 0.8530269, z: -0.15468328, w: -0.4904179}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1389561261}
   m_Father: {fileID: 625093820}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &773107729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 773107730}
+  m_Layer: 0
+  m_Name: BackStabberPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &773107730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773107729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6973437943397219028}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!225 &797621220 stripped
 CanvasGroup:
@@ -3152,8 +3182,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078121410}
-  m_LocalRotation: {x: -0.07999457, y: 0.85569936, z: -0.13914156, w: -0.49195433}
-  m_LocalPosition: {x: -1.2012923, y: 2.5000007, z: 3.8374016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.1463842, y: 2.5000007, z: 5.7948275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4535,6 +4565,10 @@ PrefabInstance:
       value: KnightWithVision
       objectReference: {fileID: 0}
     - target: {fileID: 112839762293029718, guid: a3694dafab190d947894d4ef46a1788a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 112839762293029718, guid: a3694dafab190d947894d4ef46a1788a, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -5857,6 +5891,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight
       objectReference: {fileID: 0}
+    - target: {fileID: 112839762293029718, guid: a3694dafab190d947894d4ef46a1788a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 112839762293029719, guid: a3694dafab190d947894d4ef46a1788a, type: 3}
       propertyPath: sightBased
       value: 0
@@ -5961,6 +5999,10 @@ PrefabInstance:
     - target: {fileID: 1814097799708711764, guid: cb57b51413d569b4d84f2839f81b1582, type: 3}
       propertyPath: m_Name
       value: AmbushingEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814097799708711764, guid: cb57b51413d569b4d84f2839f81b1582, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb57b51413d569b4d84f2839f81b1582, type: 3}
@@ -6619,6 +6661,7 @@ Transform:
   m_Children:
   - {fileID: 6973816780312879784}
   - {fileID: 6973322719782562526}
+  - {fileID: 773107730}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7439,26 +7482,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7fe487b8f164143a3dca42dece6c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backStabberTransform: {fileID: 0}
-  spottingDist: 0
+  backStabberTransform: {fileID: 773107730}
+  spottingDist: 3.94
   sightBased: 0
-  attackingDist: 0
-  loseSightDist: 0
+  attackingDist: 3.76
+  loseSightDist: 4.15
   runSpeed: 12
-  rotationSpeed: 35
-  enemyStat: {fileID: 0}
+  enemyStat: {fileID: 11400000, guid: b9df4450bb53ac1498959da9bf0de03f, type: 2}
   weaponObject: {fileID: 0}
-  parentForMelee: {fileID: 0}
+  parentForMelee: {fileID: 6978636464652415010}
   isStun: 0
   lastAttack: 
   state: 0
   actionState: 0
-  farAttack: 0
-  closeAttack: 0
+  closeAttack: 1.5
   farAttackCD: 3
-  throwingObj: {fileID: 0}
+  throwingObj: {fileID: 6105253002065489367, guid: 92c43898075a15b4fa82ef56dfa0b648, type: 3}
   missles: {fileID: 0}
-  instantiateTransform: {fileID: 0}
+  instantiateTransform: {fileID: 6978636464652415010}
   farVariance: 0
 --- !u!1 &6976660676633939752
 GameObject:
@@ -8740,7 +8781,7 @@ Animator:
   m_GameObject: {fileID: 6976657851644726714}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: cb65eb249b552d742b211f18f4f01f7e, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9fec5b65165bb6f48af4a6e129d6a2be, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1

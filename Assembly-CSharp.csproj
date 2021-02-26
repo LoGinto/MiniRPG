@@ -54,6 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\UI\BulletCount.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Mage.cs" />
     <Compile Include="Assets\Scripts\Saving\ISaveable.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyDamageCollider.cs" />
     <Compile Include="Assets\Scripts\Fight\LockOn.cs" />
@@ -61,7 +62,7 @@
     <Compile Include="Assets\Scripts\Enemy\MockChest.cs" />
     <Compile Include="Assets\Scripts\Fight\Shield.cs" />
     <Compile Include="Assets\Scripts\Enemy\IAI.cs" />
-    <Compile Include="Assets\Scripts\PlayerStats.cs" />
+    <Compile Include="Assets\Scripts\MainScripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\Saving\SaveableEntity.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\AdditionalSceneScript\BetterFighter.cs" />
@@ -69,26 +70,27 @@
     <Compile Include="Assets\Scripts\AdditionalSceneScript\DamageColliders.cs" />
     <Compile Include="Assets\Scripts\AdditionalSceneScript\Impacter.cs" />
     <Compile Include="Assets\Scripts\AdditionalSceneScript\BetterPickup.cs" />
-    <Compile Include="Assets\Scripts\ResetAnimatorBool.cs" />
+    <Compile Include="Assets\Scripts\MainScripts\ResetAnimatorBool.cs" />
     <Compile Include="Assets\Scripts\AdditionalSceneScript\ConsumableObject.cs" />
     <Compile Include="Assets\Scripts\Saving\SavingLoading.cs" />
     <Compile Include="Assets\Scripts\Fight\LockTransformGetter.cs" />
     <Compile Include="Assets\Scripts\AdditionalSceneScript\WeaponIndexHolder.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyImpacter.cs" />
-    <Compile Include="Assets\Scripts\Movement.cs" />
+    <Compile Include="Assets\Scripts\MainScripts\Movement.cs" />
     <Compile Include="Assets\Scripts\Fight\ShieldParry.cs" />
-    <Compile Include="Assets\Scripts\HealthManager.cs" />
+    <Compile Include="Assets\Scripts\MainScripts\HealthManager.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyStat.cs" />
     <Compile Include="Assets\Scripts\Fight\Shotgun.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Inventory\Interactible.cs" />
     <Compile Include="Assets\Scripts\AdditionalSceneScript\WeaponObject.cs" />
     <Compile Include="Assets\Scripts\AdditionalSceneScript\FlyingProjectileScript.cs" />
-    <Compile Include="Assets\Scripts\InteractibleUI.cs" />
+    <Compile Include="Assets\Scripts\MainScripts\InteractibleUI.cs" />
     <Compile Include="Assets\Scripts\AdditionalSceneScript\ClotheObject.cs" />
-    <Compile Include="Assets\Scripts\AnimationPlayer.cs" />
+    <Compile Include="Assets\Scripts\MainScripts\AnimationPlayer.cs" />
     <Compile Include="Assets\Scripts\AdditionalSceneScript\CharacterIK.cs" />
-    <Compile Include="Assets\Scripts\Enemy\Mage.cs" />
+    <Compile Include="Assets\Scripts\Other\Projectile\SimpleProjectile.cs" />
+    <Compile Include="Assets\Scripts\Other\Projectile\Missle.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

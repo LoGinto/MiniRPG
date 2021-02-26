@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Mage : Enemy
 {
-    [SerializeField] float farAttack;
     [SerializeField] float closeAttack;
-    [SerializeField] float farAttackCD = 3f;
+    [SerializeField] float farAttackCD = 3.5f;
     [SerializeField] GameObject throwingObj;
     [SerializeField] GameObject missles; 
     [SerializeField] Transform instantiateTransform;
@@ -19,12 +18,13 @@ public class Mage : Enemy
         base.Chase();
     }
     public override void Attack()
-    {
-        if (IsFarTo(closeAttack)&&IsCloseTo(closeAttack))
+    {         
+        if (IsFarTo(closeAttack)&&IsCloseTo(attackingDist))
         {
+            transform.LookAt(lookAtPlayer);
             FarAttack();
         }
-        else if (IsCloseTo(closeAttack) && IsCloseTo(farAttack))
+        else if (IsCloseTo(closeAttack) && IsCloseTo(attackingDist))
         {
             CloseAttack();
         }
@@ -69,5 +69,11 @@ public class Mage : Enemy
     public void FarAttackMultipleAnims()
     {
         Instantiate(missles, instantiateTransform.position, Quaternion.identity);
+    }
+    protected override void OnDrawGizmosSelected()
+    {
+        base.OnDrawGizmosSelected();
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, closeAttack);
     }
 }

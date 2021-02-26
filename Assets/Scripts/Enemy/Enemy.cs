@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour,IAI
     [SerializeField] protected float attackingDist;
     [SerializeField] float loseSightDist;
     [SerializeField] float runSpeed = 12;
-    [SerializeField] float rotationSpeed = 35f;//angular speed in degrees
+    //[SerializeField] float rotationSpeed = 35f;//angular speed in degrees
     [SerializeField] protected EnemyStat enemyStat;
     public WeaponObject weaponObject;
     public Transform parentForMelee;
@@ -287,7 +287,7 @@ public class Enemy : MonoBehaviour,IAI
             actionState = ActionState.lostSight;           
         }
     }
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, spottingDist);
